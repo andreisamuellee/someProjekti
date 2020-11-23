@@ -1,103 +1,108 @@
 body {
-    margin: 0;
+  margin: 0;
+}
+
+#top {
+  width: 100%;
+  height: 82px;
+  background-color: #f6511d;
+}
+
+#mid {
+  width: 100%;
+  height: 76vh;
+  background-color: rgb(255, 255, 255);
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+}
+
+#bottom {
+  width: 100%;
+  height: 12vh;
+  background-color: #f6511d;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#searchBox {
+  display: flex;
+  flex-wrap: wrap;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+i {
+    position: absolute;
   }
 
-  #top {
-    width: 100%;
-    height: 82px;
-    background-color: #f6511d;
+#tags {
+  display: flex;
+  height: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#searchBar {
+  width: 92%;
+  height: 20px;
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 3px 3px 3px #943012;
+}
+
+.tag {
+  background-color: rgb(255, 255, 255);
+  height: 20px;
+  border-radius: 20px;
+  padding: 3px;
+  box-shadow: 3px 3px 3px #943012;
+}
+
+.icon {
+  background-color: rgb(255, 255, 255);
+  width: 8vh;
+  height: 8vh;
+}
+
+@media only screen and (min-width: 992px) {
+  #searchBar {
+    width: 900px;
+    height: 20px;
   }
 
-  #mid {
-    width: 100%;
-    height: 76vh;
-    background-color: rgb(255, 255, 255);
-  }
-
-  #content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #bottom {
-    width: 100%;
-    height: 12vh;
-    background-color: #f6511d;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
-  #searchBox {
+  #tagBox {
     display: flex;
     flex-wrap: wrap;
-    height: 50%;
+    height: 32%;
     justify-content: space-evenly;
     align-items: center;
   }
 
   #tags {
-    display: flex;
-    height: 50%;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
-  #searchBar {
-    width: 92%;
-    height: 20px;
-    border-radius: 20px;
-    border: 0;
-    box-shadow: 3px 3px 3px #66210c;
+    height: 100%;
+    justify-content: left;
+    width: 900px;
   }
 
   .tag {
-    background-color: rgb(255, 255, 255);
+    margin-right: 10px;
     height: 20px;
-    border-radius: 20px;
-    padding: 3px;
-    box-shadow: 3px 3px 3px #66210c;
   }
 
-  .icon {
-    background-color: rgb(255, 255, 255);
-    width: 8vh;
-    height: 8vh;
+  #content {
+    display: flex;
+    flex-direction: row-reverse;
   }
 
-  @media only screen and (min-width: 992px) {
-    #searchBar {
-      width: 900px;
-      height: 20px;
-    }
-
-    #tagBox {
-      display: flex;
-      flex-wrap: wrap;
-      height: 35%;
-      justify-content: space-evenly;
-      align-items: center;
-    }
-
-    #tags {
-      height: 100%;
-      justify-content: left;
-      width: 900px;
-    }
-
-    .tag {
-      margin-right: 10px;
-      height: 20px;
-    }
-
-    #content {
-      display: flex;
-      flex-direction: row-reverse;
-    }
-
-    #bottom {
-      width: 150px;
-      height: 88vh;
-      flex-direction: column;
-    }
+  #bottom {
+    width: 150px;
+    height: 88vh;
+    flex-direction: column;
   }
+}
