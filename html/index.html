@@ -15,9 +15,24 @@
         <div id="openModal" class="modalDialog">
           <div>
             <a href="#close" title="Close" class="close">X</a>
-            <h2>Modal Box</h2>
-            <p>This is a sample modal box that can be created using the powers of CSS3.</p>
-            <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+            <h2>Post a spot</h2>
+            <form action="">
+              <label for="name">Name:</label><br>
+              <input type="text" id="name" name="name" required><br>
+              <label for="address">Address:</label><br>
+              <input type="text" id="address" name="address" required><br>
+              <label for="postalCode">Postal code:</label><br>
+              <input type="text" id="postalCode" name="postalCode" required><br>
+              <label for="city">City:</label><br>
+              <input type="text" id="city" name="city" required><br>
+              <label for="info">Info:</label><br>
+              <textarea id="info" name="info" placeholder="Tell something about this spot"></textarea><br><br>
+              <input type="file"
+                     name="image"
+                     accept="image/*"
+                     placeholder="Choose file"><br><br>
+              <button class="post" type="submit">Post</button>
+            </form>
           </div>
         </div>
       </section>

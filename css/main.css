@@ -75,15 +75,15 @@
 }
 
 .modalDialog > div {
-    width: 400px;
+    width: 90%;
     position: relative;
-    margin: 10% auto;
+    margin: 50% auto;
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
     background: #fff;
-    background: -moz-linear-gradient(#fff, #999);
-    background: -webkit-linear-gradient(#fff, #999);
-    background: -o-linear-gradient(#fff, #999);
+    background: -moz-linear-gradient(#fff, #f6511d);
+    background: -webkit-linear-gradient(#fff, #f6511d);
+    background: -o-linear-gradient(#fff, #f6511d);
 }
 
 .close {
@@ -105,13 +105,16 @@
     box-shadow: 1px 1px 3px #000;
 }
 
+.close:hover { background: #f6511d; }
+
+.post{
+    padding: 0.1rem 0.2rem;
+}
+
 .empty{
     height: 65.6px;
     width: 100%;
 }
-
-.close:hover { background: #00d9ff; }
-
 @media only screen and (min-width: 992px) {
     .navbar div{
         float: none;
@@ -127,6 +130,11 @@
     .content{
         display: flex;
         flex-direction: row-reverse;
+    }
+
+    .modalDialog > div {
+        width: 20%;
+        margin: 10% auto;
     }
 
 
