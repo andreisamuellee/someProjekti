@@ -50,7 +50,9 @@
 
 .content{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
 .modalDialog {
@@ -115,6 +117,72 @@
     height: 65.6px;
     width: 100%;
 }
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #f6511d;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin: 1rem;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: #f6511d;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f6511d;
+    color: #ffffff;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #e64a19;}
+
+.postItem{
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 1rem;
+    border: 1px solid #f6511d;
+    padding: 1rem;
+}
+
+.postItem h2{
+    font-size: 2.5rem;
+}
+
+.postItem p{
+    font-size: 1.3rem;
+}
+
 @media only screen and (min-width: 992px) {
     .navbar div{
         float: none;

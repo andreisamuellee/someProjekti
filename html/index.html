@@ -1,47 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://kit.fontawesome.com/dc9a87d762.js" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <ul class="topBar"><li><a href="index.html">Skater app</a></li></ul>
+</head>
+<body>
+<header>
+    <ul class="topBar">
+        <li><a href="index.html">Skater app</a></li>
+    </ul>
     <div class="empty"></div>
-    <main class="container">
-      <section class="content">
-        <div id="openModal" class="modalDialog">
-          <div>
-            <a href="#close" title="Close" class="close">X</a>
-            <h2>Post a spot</h2>
-            <form action="">
-              <label for="name">Name:</label><br>
-              <input type="text" id="name" name="name" required><br>
-              <label for="address">Address:</label><br>
-              <input type="text" id="address" name="address" required><br>
-              <label for="postalCode">Postal code:</label><br>
-              <input type="text" id="postalCode" name="postalCode" required><br>
-              <label for="city">City:</label><br>
-              <input type="text" id="city" name="city" required><br>
-              <label for="info">Info:</label><br>
-              <textarea id="info" name="info" placeholder="Tell something about this spot"></textarea><br><br>
-              <input type="file"
-                     name="image"
-                     accept="image/*"
-                     placeholder="Choose file"><br><br>
-              <button class="post" type="submit">Post</button>
-            </form>
-          </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Filters</button>
+        <div class="dropdown-content">
+            <a href="">Newest posts first</a>
+            <a href="">Oldest posts first</a>
+            <a href="">Most liked first</a>
         </div>
-      </section>
-      <nav class="navbar">
+    </div>
+</header>
+
+<main class="container">
+    <section class="content">
+      <ul class="postContent"></ul>
+
+    </section>
+    <nav class="navbar">
         <div><a class="navIcon" href="index.html"><i class="fas fa-home"></i></a></div>
         <div><a class="navIcon" href=""><i class="fas fa-search"></i></a></div>
         <div><a class="navIcon" href="#openModal"><i class="fas fa-camera-retro"></i></a></div>
         <div><a class="navIcon" href=""><i class="fas fa-user-cog"></i></a></div>
-      </nav>
-    </main>
-  </body>
+    </nav>
+</main>
+
+<div id="openModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <h2>Post a spot</h2>
+        <form id="postForm" enctype="multipart/form-data">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address" required><br>
+            <label for="city">City:</label><br>
+            <input type="text" id="city" name="city" required><br>
+            <label for="info">Info:</label><br>
+            <textarea id="info" name="info" placeholder="Tell something about this spot"></textarea><br><br>
+            <input type="file"
+                   name="image"
+                   accept="image/*"
+                   placeholder="Choose file"><br><br>
+            <button class="post" type="submit">Post</button>
+        </form>
+    </div>
+</div>
+
+<div id="modModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close">X</a>
+        <h2>Post a spot</h2>
+        <form id="modForm" enctype="multipart/form-data">
+            <label for="name">Name:</label><br>
+            <input type="text" id="modName" name="name" required><br>
+            <label for="address">Address:</label><br>
+            <input type="text" id="modAddress" name="address" required><br>
+            <label for="city">City:</label><br>
+            <input type="text" id="modCity" name="city" required><br>
+            <label for="info">Info:</label><br>
+            <textarea id="modInfo" name="info" placeholder="Tell something about this spot"></textarea><br><br>
+            <input type="file"
+                   name="image"
+                   accept="image/*"
+                   placeholder="Choose file"><br><br>
+            <input type="hidden" name="id">
+            <button class="modify" type="submit">Save changes</button>
+        </form>
+    </div>
+</div>
+
+<div class="hide modal" id="image-modal">
+    <a href="#" class="close">Close</a>
+    <img src="" alt="">
+    <div id="map"></div>
+</div>
+<script src="../js/serialize.js"></script>
+<script src="../js/main.js"></script>
+</body>
 </html>
