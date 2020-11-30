@@ -18,6 +18,7 @@
           <h4>Username</h4>
           <input
             type="text"
+            pattern=".{3,}"
             placeholder="Enter Username"
             name="usrname"
             required
@@ -26,7 +27,7 @@
             <h4>Email</h4>
             <input
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter email address"
               name="email"
               required
             />
@@ -36,6 +37,7 @@
             type="password"
             placeholder="Enter Password"
             name="paswrd"
+            pattern="(?=.*[A-Z]).{8,}"
             required
           />
 
