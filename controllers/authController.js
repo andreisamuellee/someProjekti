@@ -21,7 +21,7 @@ const login = (req, res) => {
         res.send(err);
       }
       // generate a signed son web token with the contents of user object and return it in the response
-      const token = jwt.sign(user, 'ilkkamtk');
+      const token = jwt.sign(user, 'group3');
       return res.json({user, token});
     });
 
