@@ -2,9 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/search.css">5
+    <script src="https://kit.fontawesome.com/dc9a87d762.js" crossorigin="anonymous"></script>
   </head>
   <body>
-
+    <div class="topBar">
+      <div id="searchBox">
+        <input id="searchBar" placeholder="Search"></input>
+      </div>
+      <div class="tagBox">
+        <div class="tags">
+          <div class="tag">#stairs</div>
+          <div class="tag">#handrail</div>
+          <div class="tag">#ledge</div>
+        </div>
+      </div>
+    </div>
+    <div class="empty"></div>
+    
+    <main class="container">
+      <section class="content">
+        <div id="openModal" class="modalDialog">
+          <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <h2>Modal Box</h2>
+            <p>This is a sample modal box that can be created using the powers of CSS3.</p>
+            <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+          </div>
+        </div>
+      </section>
+      <nav class="navbar">
+        <div><a class="navIcon" href="index.html"><i class="fas fa-home"></i></a></div>
+        <div><a class="navIcon" href="search.html"><i class="fas fa-search"></i></a></div>
+        <div><a class="navIcon" href="#openModal"><i class="fas fa-camera-retro"></i></a></div>
+        <div><a class="navIcon" href=""><i class="fas fa-user-cog"></i></a></div>
+      </nav>
+    </main>
   </body>
 </html>
