@@ -25,18 +25,10 @@ const create_post = async (req, res) => {
     return res.status(400).json({errors: errors.array()});
   }
 
-  let coords = [];
-  try {
-    coords = await getCoordinates(req.file.path);
-  } catch (e) {
-    console.log(e);
-    coords = [60,20];
-  }
-
-  console.log('coords', coords);
   // object destructuring
-  const {name, age, weight, owner} = req.body;
-  const params = [name, age, weight, owner, req.file.filename, coords];
+  // saattaa sisältää virheitä, mm. uploadaa vain yhden kuvan
+  const {otsikko, katuosoite, tiedot, paikkakunta, sahkoposti} = req.body;
+  const params = [otsikko, katuosoite, tiedot, paikkakunta, sahkoposti, req.file.filename];
   const post = await postModel.addPost(params);
   res.json({message: 'upload ok'});
 };
@@ -48,8 +40,8 @@ const post_update_put = async (req, res) => {
     return res.status(400).json({errors: errors.array()});
   }
   // object destructuring
-  const {name, age, weight, owner, id} = req.body;
-  const params = [name, age, weight, owner, id];
+  const {otsikko, katuosoite, tiedot, paikkakunta, postausid} = req.body;
+  const params = [otsikko, katuosoite, tiedot, paikkakunta, postausid];
   const post = await postModel.updatePost(params);
   res.json({message: 'modify ok'});
 };
@@ -73,6 +65,38 @@ const make_thumbnail = async (req, res, next) => {
   }
 };
 
+const create_comment = async (req, res) => {
+  console.log('create_comment', req.body, req.file);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()});
+  }
+
+  // object destructuring
+  const {teksti, postausID} = req.body;
+  const params = [teksti, postausID];
+  const post = await postModel.addComment(params);
+  res.json({message: 'upload ok'});
+};
+
+const comment_delete = async (req, res) => {
+  const id = req.params.id;
+  const comment = await postModel.deleteComment(id);
+  res.json(comment);
+};
+
+const comment_get = async (req, res) => {
+  const id = req.params.id;
+  const comment = await postModel.getComment(id);
+  res.json(comment);
+};
+
+const get_post_comments = async (req, res) => {
+  const id = req.params.id;
+  const comments = await postModel.getPostComments(id);
+  res.json(comments);
+};
+
 module.exports = {
   post_list_get,
   post_get,
@@ -80,6 +104,11 @@ module.exports = {
   post_update_put,
   post_delete,
   make_thumbnail,
+  create_comment,
+  comment_delete,
+  comment_get,
+  get_post_comments,
+  
 };
 
 

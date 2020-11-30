@@ -28,20 +28,37 @@ router.get('/', postController.post_list_get);
 router.get('/:id', postController.post_get);
 
 router.post('/', upload.single('post'), injectFile, postController.make_thumbnail, [
-  body('name', 'vaadittu kenttä').isLength({min: 1}),
-  body('age', 'syötä numero').isLength({min: 1}).isNumeric(),
-  body('weight', 'syötä numero').isLength({min: 1}).isNumeric(),
-  body('owner', 'syötä numero').isLength({min: 1}).isNumeric(),
+  body('otsikko', 'vaadittu kenttä').isLength({min: 1}),
+  body('katuosoite', 'vaadittu kenttä').isLength({min: 1}),
+  body('tiedot', 'anna tietoja'),
+  body('sahkoposti', 'syötä sähköposti').isLength({min: 4}).isEmail(),
   body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.create_post);
 
 router.put('/', [
-  body('name', 'vaadittu kenttä').isLength({min: 1}),
-  body('age', 'syötä numero').isLength({min: 1}).isNumeric(),
-  body('weight', 'syötä numero').isLength({min: 1}).isNumeric(),
-  body('owner', 'syötä numero').isLength({min: 1}).isNumeric(),
+  body('otsikko', 'vaadittu kenttä').isLength({min: 1}),
+  body('katuosoite', 'vaadittu kenttä').isLength({min: 1}),
+  body('tiedot', 'anna tietoja spotista'),
+  body('paikkakunta', 'vaadittu kenttä').isLength({min: 1}),
 ], postController.post_update_put);
 
 router.delete('/:id', postController.post_delete);
+
+
+//same '/' address? might not work.
+
+/*
+router.post('/', upload.single('comment'), [
+  body('teksti', 'vaadittu kenttä').isLength({min: 1}),
+  body('postausID', 'vaadittu kenttä').isLength({min: 1}).isNumeric(),
+], postController.create_comment);
+
+router.delete('/:id', postController.comment_delete);
+
+router.get('/:id', postController.comment_get);
+
+//uses post id to get post comments
+router.get('/:id', postController.get_post_comments);
+*/
 
 module.exports = router;
