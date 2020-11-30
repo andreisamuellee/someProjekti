@@ -29,7 +29,7 @@ const getPost = async (id) => {
 const addPost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO postaus (postausID, otsikko, katuosoite, aikaleima, tiedot, kaupunki, sahkoposti) VALUES (?,?,?,(SELECT CURRENT_TIMESTAMP),?,?,?)',
+      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?,?,?)',
       params
     );
     console.log('rows', rows);
@@ -95,7 +95,7 @@ const deletePhoto = async (id) => {
 const addComment = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO kommentit (kommenttiID, teksti, aikaleima, postausID) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?)',
+      'INSERT INTO kommentit (teksti, aikaleima, postausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
       params
     );
     console.log('rows', rows);
