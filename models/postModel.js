@@ -29,7 +29,8 @@ const getPost = async (id) => {
 const addPost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?,?,?)',
+      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?,?,?);' +
+        'INSERT INTO Kuva (KuvaTiedosto, PostausID) SELECT ?, MAX(postausID) FROM postaus;',
       params
     );
     console.log('rows', rows);

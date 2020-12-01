@@ -15,11 +15,11 @@
 
       <form>
         <div class="container">
-          <h4>Username</h4>
+          <h4>Email</h4>
           <input
-            type="text"
-            placeholder="Enter Username"
-            name="usrname"
+            type="email"
+            placeholder="Enter email address"
+            name="email"
             required
           />
 
@@ -27,7 +27,8 @@
           <input
             type="password"
             placeholder="Enter Password"
-            name="paswrd"
+            name="password"
+            pattern="(?=.*[A-Z]).{8,}"
             required
           />
 

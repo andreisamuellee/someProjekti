@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1"
     />
     <title>Register</title>
-    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/register.css" />
   </head>
   <body>
     <div class="outercontainer">
@@ -15,24 +15,35 @@
 
       <form>
         <div class="container">
+
+          <h4>Email</h4>
+            <input
+              type="email"
+              placeholder="Enter email address"
+              name="email"
+              required
+            />
+
           <h4>Username</h4>
           <input
             type="text"
+            pattern=".{3,}"
             placeholder="Enter Username"
-            name="usrname"
+            name="username"
             required
-          />
+          />            
 
           <h4>Password</h4>
           <input
             type="password"
             placeholder="Enter Password"
-            name="paswrd"
+            name="password"
+            pattern="(?=.*[A-Z]).{8,}"
             required
           />
 
           <button type="submit">Register</button>
-          <a id="login-link" href="./login.html"> Already user?</a>
+          <a id="login-link" href="./login.html"> Have an account?</a>
         </div>
       </form>
     </div>
