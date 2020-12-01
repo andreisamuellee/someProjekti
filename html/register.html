@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
-    <title>Register</title>
-    <link rel="stylesheet" href="../css/login.css" />
-  </head>
-  <body>
-    <div class="outercontainer">
-      <h2>Register</h2>
+<head>
+  <meta
+          charset="utf-8"
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+  />
+  <title>Register</title>
+  <link rel="stylesheet" href="../css/register.css" />
+</head>
+<body>
+<div class="outercontainer">
+  <h2>Register</h2>
 
-      <form>
-        <div class="container">
-          <h4>Username</h4>
-          <input
-            type="text"
-            placeholder="Enter Username"
-            name="usrname"
-            required
-          />
+  <form>
+    <div class="container">
 
-          <h4>Password</h4>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="paswrd"
-            required
-          />
+      <h4>Email</h4>
+      <input
+              type="email"
+              placeholder="Enter email address"
+              name="email"
+              required
+      />
 
-          <button type="submit">Register</button>
-          <a id="login-link" href="./login.html"> Already user?</a>
-        </div>
-      </form>
+      <h4>Username</h4>
+      <input
+              type="text"
+              pattern=".{3,}"
+              placeholder="Enter Username"
+              name="username"
+              required
+      />
+
+      <h4>Password</h4>
+      <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              pattern="(?=.*[A-Z]).{8,}"
+              required
+      />
+
+      <button type="submit">Register</button>
+      <a id="login-link" href="./login.html"> Have an account?</a>
     </div>
-    <script src="../js/serialize.js"></script>
-    <script src="../js/register.js"></script>
-  </body>
+  </form>
+</div>
+<script src="../js/serialize.js"></script>
+<script src="../js/register.js"></script>
+</body>
 </html>
