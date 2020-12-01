@@ -40,13 +40,13 @@ const user_create_post = async (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const params = [
-      req.body.name,
+      req.body.email,
       req.body.username,
       hash, // TODO: save hash instead of the actual password
     ];
 
     if (await userModel.addUser(params)) {
-      next();
+      res.status(200).json({message: 'register ok'});
     } else {
       res.status(400).json({error: 'register error'});
     }

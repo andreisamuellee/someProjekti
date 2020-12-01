@@ -29,7 +29,7 @@ const getUser = async (id) => {
 const addUser = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kayttaja (sahkoposti, kayttajatunnus, salasana, profiilikuva, bio) VALUES (?,?,?,?,?)',
+        'INSERT INTO kayttaja (sahkoposti, kayttajatunnus, salasana) VALUES (?,?,?)',
         params
     );
     console.log('rows', rows);

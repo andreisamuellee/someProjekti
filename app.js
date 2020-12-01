@@ -14,7 +14,7 @@ app.use(express.static('uploads'));
 app.use('/thumbnails', express.static('thumbnails'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
+console.log('Andrei');
 app.use('/auth', authRoute);
 app.use('/post',  passport.authenticate('jwt', {session: false}), postRoute);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
