@@ -16,7 +16,7 @@ const getAllUsers = async () => {
 
 const getUser = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM kayttaja WHERE user_id = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM kayttaja WHERE Sahkoposti = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -29,7 +29,7 @@ const getUser = async (id) => {
 const addUser = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kayttaja (sahkoposti, kayttajatunnus, salasana, profiilikuva, bio) VALUES (?,?,?,?,?)',
+        'INSERT INTO kayttaja (sahkoposti, kayttajatunnus, salasana) VALUES (?,?,?)',
         params
     );
     console.log('rows', rows);

@@ -120,6 +120,7 @@ const getPost = async () => {
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(postForm);
+  console.log(fd);
   const fetchOptions = {
     method: 'POST',
     headers: {

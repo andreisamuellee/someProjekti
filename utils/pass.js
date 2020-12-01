@@ -17,7 +17,7 @@ passport.use(new Strategy(
         if (user === undefined) {
           return done(null, false, {message: 'Incorrect email or password.'});
         }
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (!bcrypt.compareSync(password, user.Salasana)) {
           return done(null, false, {message: 'Incorrect email or password.'});
         }
         return done(null, {...user}, {message: 'Logged In Successfully'}); // use spread syntax to create shallow copy to get rid of binary row type
@@ -35,7 +35,7 @@ passport.use(new JWTStrategy({
 
       //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
       try{
-        const [user] = await userModel.getUser(jwtPayload.user_id);
+        const [user] = await userModel.getUser(jwtPayload.Sahkoposti);
         if (user === undefined){
           return done(null, false);
         }
