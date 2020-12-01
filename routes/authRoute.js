@@ -13,7 +13,11 @@ router.post('/register',
       body('password', 'at least one upper case letter').
       matches('(?=.*[A-Z]).{8,}'),
     ],
+<<<<<<< HEAD
     authController.user_create_post
+=======
+    authController.user_create_post,
+>>>>>>> origin/main
 );
 
 module.exports = router;

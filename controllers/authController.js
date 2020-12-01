@@ -8,7 +8,7 @@ const userModel = require('../models/userModel');
 const login = (req, res) => {
   // TODO: add passport authenticate
   passport.authenticate('local', {session: false}, (err, user, info) => {
-    console.log('login', info);
+    console.log('login', err, user, info);
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',

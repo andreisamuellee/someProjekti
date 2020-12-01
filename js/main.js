@@ -120,6 +120,7 @@ const getPost = async () => {
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(postForm);
+  console.log(fd);
   const fetchOptions = {
     method: 'POST',
     headers: {
@@ -157,8 +158,8 @@ openFormBtn.addEventListener('click', () => {
   document.getElementById('openModal').style.display = 'block';
 });
 
-if (sessionStorage.getItem('token')) {
+/*if (sessionStorage.getItem('token')) {
   getPost();
 }else{
   window.location.href = 'login.html';
-}
+}*/
