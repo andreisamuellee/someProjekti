@@ -1,4 +1,4 @@
-const loginForm = document.querySelector('form')
+const loginForm = document.querySelector('#loginForm')
 const url = 'http://localhost:3000' // palvelimen osote
 
 loginForm.addEventListener('submit', async (evt) => {
