@@ -27,8 +27,8 @@ const create_post = async (req, res) => {
 
   // object destructuring
   // saattaa sisältää virheitä, mm. uploadaa vain yhden kuvan
-  const {otsikko, katuosoite, tiedot, paikkakunta, sahkoposti} = req.body;
-  const params = [otsikko, katuosoite, tiedot, paikkakunta, sahkoposti, req.file.filename];
+  const {otsikko, katuosoite, paikkakunta, tiedot} = req.body;
+  const params = [otsikko, katuosoite, paikkakunta, tiedot, req.file.filename];
   const post = await postModel.addPost(params);
   res.json({message: 'upload ok'});
 };

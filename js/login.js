@@ -1,9 +1,10 @@
-const loginForm = document.querySelector('form')
+const loginForm = document.querySelector('#loginForm')
 const url = 'http://localhost:3000' // palvelimen osote
 
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(loginForm);
+  console.log(data);
   const fetchOptions = {
     method: 'POST',
     headers: {
@@ -25,7 +26,7 @@ loginForm.addEventListener('submit', async (evt) => {
 
 /*
 
-TÄÄ TULEE SINNE MIS LOGOUT ON
+TÄÄ TULEE SINNE MIS LOGOUT OUT
 logOut.addEventListener('click', async (evt) => {
   evt.preventDefault();
   try {
@@ -46,27 +47,4 @@ logOut.addEventListener('click', async (evt) => {
   }
 });
 
-
-addUserForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-  const data = serializeJson(addUserForm);
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  };
-  const response = await fetch(url + '/auth/register', fetchOptions);
-  const json = await response.json();
-  console.log('user add response', json);
-  // save token
-  sessionStorage.setItem('token', json.token);
-  // show/hide forms + cats
-  loginWrapper.style.display = 'none';
-  logOut.style.display = 'block';
-  main.style.display = 'block';
-  getCat();
-  getUsers();
-});
 */
