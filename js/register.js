@@ -4,6 +4,7 @@ const url = 'http://localhost:3000' // palvelimen osote
 addUserForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const data = serializeJson(addUserForm);
+    console.log(data);
     const fetchOptions = {
       method: 'POST',
       headers: {
