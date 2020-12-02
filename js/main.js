@@ -132,7 +132,7 @@ postForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('add response', json);
   getPost();
-  document.getElementById('openModal').style.display = 'none';
+  //document.getElementById('openModal').style.display = 'none';
 });
 
 modForm.addEventListener('submit', async (evt) => {

@@ -30,9 +30,9 @@ router.get('/:id', postController.post_get);
 router.post('/', upload.single('post'), injectFile, postController.make_thumbnail, [
   body('otsikko', 'vaadittu kenttä').isLength({min: 1}),
   body('katuosoite', 'vaadittu kenttä').isLength({min: 1}),
-  body('kaupunki', 'vaadittu kenttä').isLength({min: 1}),
+  body('paikkakunta', 'vaadittu kenttä').isLength({min: 1}),
   body('tiedot', 'anna tietoja'),
-  //body('mimetype', 'ei ole kuva').contains('image'),
+  body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.create_post);
 
 router.put('/', [
