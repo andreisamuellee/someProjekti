@@ -22,6 +22,20 @@ map.on('load', function () {
 });
 
 function postsToMap(data) {
+  console.log('POSTAA');
+
+  const img = document.createElement('img');
+  img.src = url + '/thumbnails/' + data.KuvaTiedosto;
+  img.classList.add('resp');
+
+  img.addEventListener('click', () => {
+    modalImage.src = url + '/' + data.KuvaTiedosto;
+    imageModal.alt = data.Otsikko;
+    imageModal.classList.toggle('hide');
+  });
+
+  const figure = document.createElement('figure').appendChild(img);
+
   var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
   mapboxClient.geocoding
     .forwardGeocode({
@@ -39,11 +53,12 @@ function postsToMap(data) {
       ) {
         var feature = response.body.features[0];
         new mapboxgl.Marker()
-        .setLngLat(feature.center)
-        .setPopup(new mapboxgl.Popup({offset:25}).setHTML(
-          '<h2>'+data.Otsikko+'</h2><p>Posted: '+data.Aikaleima+'</p><p>'+data.Katuosoite + ', ' + data.Paikkakunta+'</p><p>'+data.Tiedot+'</p'
+          .setLngLat(feature.center)
+          .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(
+            '<h2 class="markerHeader">' + data.Otsikko + '</h2>' +
+            '<img src=' + url + '/thumbnails/' + data.KuvaTiedosto + ' class="markerImg"></img>'
           ))
-        .addTo(map);
+          .addTo(map);
       }
     });
 }
