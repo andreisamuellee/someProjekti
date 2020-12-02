@@ -21,15 +21,17 @@ const post_get = async (req, res) => {
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({errors: errors.array()});
-  }
+  
 
   // object destructuring
   // saattaa sisältää virheitä, mm. uploadaa vain yhden kuvan
-  const {otsikko, katuosoite, paikkakunta, tiedot} = req.body;
-  const params = [otsikko, katuosoite, paikkakunta, tiedot, req.file.filename];
+  const {otsikko, katuosoite, tiedot, kaupunki} = req.body;
+  const params = [otsikko, katuosoite, tiedot, kaupunki, req.user.Sahkoposti];
+  console.log(params);
   const post = await postModel.addPost(params);
+  const params2 = [req.file.filename, post.insertId]
+  console.log(params2);
+  const image = await postModel.addPhoto(params2)
   res.json({message: 'upload ok'});
 };
 

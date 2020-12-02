@@ -13,7 +13,7 @@ const getAllPosts = async () => {
     return { error: 'DB Error' };
   }
 };
-
+/*
 const getPost = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
@@ -25,12 +25,27 @@ const getPost = async (id) => {
     return { error: 'DB Error' };
   }
 }
+*/
+const getPost = async (id) => {
+  try {
+    const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
+      [id]);
+    rows.push(await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
+      [id]));
+    rows.push(await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
+      [id]));
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
 
 const addPost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?,?,?);',
-        //'INSERT INTO Kuva (KuvaTiedosto, PostausID) SELECT ?, MAX(postausID) FROM postaus;',
+      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,NOW(),?,?,?);',
       params
     );
     console.log('rows', rows);
@@ -70,7 +85,7 @@ const deletePost = async (id) => {
 const addPhoto = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO kuva (kuvaID, kuvaTiedosto, postausID) VALUES (?,?,?)',
+      'INSERT INTO kuva (kuvaTiedosto, postausID) VALUES (?,?)',
       params
     );
     console.log('rows', rows);

@@ -1,7 +1,7 @@
 'use strict';
 const url = 'http://localhost:3000';
 
-const postForm = document.querySelector('#postForm');
+const postForm = document.getElementById('postForm');
 const ul = document.querySelector('.postContent');
 const openFormBtn = document.querySelector('.fa-camera-retro');
 const imageModal = document.querySelector('#image-modal');
@@ -15,7 +15,7 @@ const createPost = (data) => {
   data.forEach((post) => {
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + post.filename;
-    img.alt = post.name;
+    img.alt = post.Otsikko;
     img.classList.add('resp');
 
     img.addEventListener('click', () => {
@@ -34,14 +34,14 @@ const createPost = (data) => {
     const figure = document.createElement('figure').appendChild(img);
 
     const h2 = document.createElement('h2');
-    h2.innerHTML = data.name;
+    h2.innerHTML = post.Otsikko;
     const p0 = document.createElement('p');
-    p0.innerHTML = data.timestamp;
+    p0.innerHTML = post.Aikaleima;
     const p1 = document.createElement('p');
-    p1.innerHTML = data.address + ' ' + data.city;
+    p1.innerHTML = post.Katuosoite + ' ' + post.Kaupunki;
     const p2 = document.createElement('p');
-    p2.innerHTML = data.info;
-
+    p2.innerHTML = post.Tiedot;
+//moment.js aikaleimoihin
     const likeButton = document.createElement('button');
     likeButton.innerHTML = 'Like';
     likeButton.addEventListener('click', () =>{
@@ -110,6 +110,7 @@ const getPost = async () => {
     };
     const response = await fetch(url + '/post', options);
     const data = await response.json();
+    console.log(data);
     createPost(data);
   }
   catch (e) {
@@ -129,10 +130,10 @@ postForm.addEventListener('submit', async (evt) => {
     body: fd,
   };
   const response = await fetch(url + '/post', fetchOptions);
-  const json = await response.json();
-  console.log('add response', json);
-  getPost();
-  document.getElementById('openModal').style.display = 'none';
+//const json = await response.json();
+  //console.log('add response', json);
+  //getPost();
+  //document.getElementById('openModal').style.display = 'none';
 });
 
 modForm.addEventListener('submit', async (evt) => {
@@ -158,8 +159,8 @@ openFormBtn.addEventListener('click', () => {
   document.getElementById('openModal').style.display = 'block';
 });
 
-/*if (sessionStorage.getItem('token')) {
+if (sessionStorage.getItem('token')) {
   getPost();
 }else{
   window.location.href = 'login.html';
-}*/
+}
