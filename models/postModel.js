@@ -13,7 +13,7 @@ const getAllPosts = async () => {
     return { error: 'DB Error' };
   }
 };
-
+/*
 const getPost = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
@@ -25,13 +25,28 @@ const getPost = async (id) => {
     return { error: 'DB Error' };
   }
 }
+*/
+const getPost = async (id) => {
+  try {
+    const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
+        [id]);
+    rows.push(await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
+        [id]));
+    rows.push(await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
+        [id]));
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
 
 const addPost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,(SELECT CURRENT_TIMESTAMP),?,?,?);' +
-        'INSERT INTO Kuva (KuvaTiedosto, PostausID) SELECT ?, MAX(postausID) FROM postaus;',
-      params
+        'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,NOW(),?,?,?);',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -44,8 +59,8 @@ const addPost = async (params) => {
 const updatePost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'UPDATE postaus SET otsikko = ?, katuosoite = ?, tiedot = ?, paikkakunta = ? WHERE postausID = ?',
-      params
+        'UPDATE postaus SET otsikko = ?, katuosoite = ?, tiedot = ?, paikkakunta = ? WHERE postausID = ?',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -58,7 +73,7 @@ const updatePost = async (params) => {
 const deletePost = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM postaus WHERE postausID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -70,8 +85,8 @@ const deletePost = async (id) => {
 const addPhoto = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO kuva (kuvaID, kuvaTiedosto, postausID) VALUES (?,?,?)',
-      params
+        'INSERT INTO kuva (kuvaTiedosto, postausID) VALUES (?,?)',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -84,7 +99,7 @@ const addPhoto = async (params) => {
 const deletePhoto = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -96,8 +111,8 @@ const deletePhoto = async (id) => {
 const addComment = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO kommentit (teksti, aikaleima, postausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
-      params
+        'INSERT INTO kommentit (teksti, aikaleima, postausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -110,7 +125,7 @@ const addComment = async (params) => {
 const deleteComment = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM kommentit WHERE kommenttiID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -122,7 +137,7 @@ const deleteComment = async (id) => {
 const getComment = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -134,7 +149,7 @@ const getComment = async (id) => {
 const getPostComments = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM kommentit WHERE postausID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -146,8 +161,8 @@ const getPostComments = async (id) => {
 const addLike = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO tykkays (sahkoposti, postausID) VALUES (?,?)',
-      params
+        'INSERT INTO tykkays (sahkoposti, postausID) VALUES (?,?)',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -160,7 +175,7 @@ const addLike = async (params) => {
 const deleteLike = async (params) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM tykkays WHERE postausID = ? AND sahkoposti = ?',
-      params
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -173,7 +188,7 @@ const deleteLike = async (params) => {
 const getLikeCount = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT COUNT(postausID) FROM tykkays WHERE postausID = ?',
-      [id]);
+        [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -185,8 +200,8 @@ const getLikeCount = async (id) => {
 const addTag = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO tagit (tagID, tag) VALUES (?,?)',
-      params
+        'INSERT INTO tagit (tagID, tag) VALUES (?,?)',
+        params
     );
     console.log('rows', rows);
     return rows;
@@ -199,7 +214,7 @@ const addTag = async (params) => {
 const deleteTag = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM tagit WHERE tagID = ?',
-      [id]
+        [id]
     );
     console.log('rows', rows);
     return rows;

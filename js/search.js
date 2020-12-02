@@ -2,12 +2,10 @@
 let searchBar = document.getElementById("searchBar");
 let searchBtn = document.getElementById("searchBtn");
 
-searchBar.innerText('kerma');
-
 searchBtn.onclick = () => {
-    console.log('nakki');
+    search();
 }
 
-function myScript(){
-    console.log('nakki');
+function search(){
+    console.log(searchBar.value);
 }

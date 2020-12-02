@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/search.css">5
+    <link rel="stylesheet" href="../css/search.css">
+    
     <script src="https://kit.fontawesome.com/dc9a87d762.js" crossorigin="anonymous"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet"/>
   </head>
   <body>
     <div class="topBar">
       <div id="searchBox">
         <input id="searchBar" placeholder="Search"></input>
+        <button id="searchBtn"><i id="srcIcon" class="fas fa-search"></i></button>
       </div>
       <div class="tagBox">
         <div class="tags">
@@ -33,6 +37,8 @@
             <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
           </div>
         </div>
+        <div id="map"></div>
+        
       </section>
       <nav class="navbar">
         <div><a class="navIcon" href="index.html"><i class="fas fa-home"></i></a></div>
@@ -41,5 +47,7 @@
         <div><a class="navIcon" href=""><i class="fas fa-user-cog"></i></a></div>
       </nav>
     </main>
+    <script src="../js/map.js"></script>
+    <script src="../js/search.js"></script>
   </body>
 </html>

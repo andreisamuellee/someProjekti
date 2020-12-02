@@ -3,7 +3,9 @@
 const {validationResult} = require('express-validator');
 const postModel = require('../models/postModel');
 const {makeThumbnail} = require('../utils/resize');
-const imageMeta = require('../utils/imageMeta');
+const {getCoordinates} = require('../utils/imageMeta');
+
+const posts = postModel.posts;
 
 const post_list_get = async (req, res) => {
   const posts = await postModel.getAllPosts();
@@ -19,16 +21,17 @@ const post_get = async (req, res) => {
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log('Create_post error');
-    return res.status(400).json({errors: errors.array()});
-  }
+
 
   // object destructuring
   // saattaa sisältää virheitä, mm. uploadaa vain yhden kuvan
-  const {otsikko, katuosoite, paikkakunta, tiedot} = req.body;
-  const params = [otsikko, katuosoite, paikkakunta, tiedot, req.file.filename];
+  const {otsikko, katuosoite, tiedot, paikkakunta} = req.body;
+  const params = [otsikko, katuosoite, tiedot, paikkakunta, req.user.Sahkoposti];
+  console.log(params);
   const post = await postModel.addPost(params);
+  const params2 = [req.file.filename, post.insertId];
+  console.log(params2);
+  const image = await postModel.addPhoto(params2);
   res.json({message: 'upload ok'});
 };
 
@@ -107,7 +110,9 @@ module.exports = {
   comment_delete,
   comment_get,
   get_post_comments,
-  
+
 };
+
+
 
 

@@ -1,61 +1,92 @@
+#map {
+  width: 100%;
+  height: calc(100vh - 156px);
+  margin-top: 24px;
+}
+
+#srcIcon {
+  color: grey;
+}
+
 #searchBox {
+  display: flex;
+  flex-wrap: wrap;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.tags {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#searchBar {
+  width: 80%;
+  height: 24px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  border: 0;
+  box-shadow: 3px 3px 3px #943012;
+  padding-left: 8px;
+}
+
+#searchBtn {
+  height: 24px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  border: 0;
+  box-shadow: 3px 3px 3px #943012;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.tag {
+  background-color: rgb(255, 255, 255);
+  height: 20px;
+  border-radius: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  box-shadow: 3px 3px 3px #943012;
+}
+
+.tagBox {
+    height: 40px;
+}
+
+.mapboxgl-ctrl-top-right {
+  visibility: hidden
+}
+
+@media only screen and (min-width: 992px) {
+  #searchBar {
+    width: 750px;
+  }
+
+  .tagBox {
     display: flex;
     flex-wrap: wrap;
-    height: 40px;
     justify-content: center;
-    align-items: center;
-    position: relative;
   }
-  
+
   .tags {
-    display: flex;
-    justify-content: space-evenly;
+    justify-content: left;
+    width: 750px;
   }
-  
-  #searchBar {
-    width: 92%;
-    height: 20px;
-    border-radius: 20px;
-    border: 0;
-    box-shadow: 3px 3px 3px #943012;
-    padding-left: 8px;
-  }
-  
+
   .tag {
-    background-color: rgb(255, 255, 255);
-    height: 20px;
-    border-radius: 20px;
-    padding-left: 7px;
-    padding-right: 7px;
-    box-shadow: 3px 3px 3px #943012;
+    margin-right: 10px;
   }
-  
-  .tagBox {
-      height: 40px;
+
+  #map {
+    width: calc(100% - 72px);
+    height: calc(100vh - 89px);
+    float: right;
   }
-  
-  @media only screen and (min-width: 992px) {
-    #searchBar {
-      width: 750px;
-      height: 20px;
-    }
-  
-    #searchBox {
-      margin-top: 10px;
-    }
-  
-    .tagBox {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  
-    .tags {
-      justify-content: left;
-      width: 750px;
-    }
-  
-    .tag {
-      margin-right: 10px;
-    }
+
+  .content {
+    display: inline;
   }
+}

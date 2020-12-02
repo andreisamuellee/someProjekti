@@ -27,7 +27,8 @@ router.get('/', postController.post_list_get);
 
 router.get('/:id', postController.post_get);
 
-router.post('/', upload.single('post'), injectFile, postController.make_thumbnail, [
+//inside router post =  
+router.post('/', upload.single('image'), injectFile, postController.make_thumbnail, [
   body('otsikko', 'vaadittu kenttä').isLength({min: 1}),
   body('katuosoite', 'vaadittu kenttä').isLength({min: 1}),
   body('paikkakunta', 'vaadittu kenttä').isLength({min: 1}),
