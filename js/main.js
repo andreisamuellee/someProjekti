@@ -20,7 +20,7 @@ const createPost = (data) => {
 
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + post.filename;
-      imageModal.alt = post.name;
+      imageModal.alt = post.Otsikko;
       imageModal.classList.toggle('hide');
       /*try {
         const coords = JSON.parse(post.coords);
@@ -38,7 +38,7 @@ const createPost = (data) => {
     const p0 = document.createElement('p');
     p0.innerHTML = post.Aikaleima;
     const p1 = document.createElement('p');
-    p1.innerHTML = post.Katuosoite + ' ' + post.Kaupunki;
+    p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
 //moment.js aikaleimoihin
@@ -130,10 +130,10 @@ postForm.addEventListener('submit', async (evt) => {
     body: fd,
   };
   const response = await fetch(url + '/post', fetchOptions);
-//const json = await response.json();
-  //console.log('add response', json);
-  //getPost();
-  //document.getElementById('openModal').style.display = 'none';
+  const json = await response.json();
+  console.log('add response', json);
+  getPost();
+  document.getElementById('openModal').style.display = 'none';
 });
 
 modForm.addEventListener('submit', async (evt) => {
