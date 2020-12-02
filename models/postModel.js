@@ -5,7 +5,8 @@ const promisePool = pool.promise();
 const getAllPosts = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT * FROM postaus');
+    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Sahkoposti, KuvaTiedosto ' +
+        'FROM Postaus INNER JOIN Kuva WHERE Postaus.PostausID = Kuva.PostausID;');
     console.log('rows', rows);
     return rows;
   } catch (e) {
