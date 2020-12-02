@@ -9,8 +9,9 @@ const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const modForm = document.querySelector('#modForm');
 
-const createPost = (data) => {
+const createPost = async (data) => {
 
+  const loggedUser = await getLoggedUser();
   ul.innerHTML = '';
   data.forEach((post) => {
     const img = document.createElement('img');
@@ -72,7 +73,7 @@ const createPost = (data) => {
         },
       };
       try {
-        const response = await fetch(url + '/post/' + post.post_id, fetchOptions);
+        const response = await fetch(url + '/post/user/' + post.post_id, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
         getPost();
@@ -85,12 +86,21 @@ const createPost = (data) => {
     const li = document.createElement('li');
     li.classList.add('postItem');
 
+    console.log('Log '+  loggedUser);
+    console.log('Post-sposti ' + post.Sahkoposti);
+
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p0);
     li.appendChild(p1);
     li.appendChild(p2);
     li.appendChild(likeButton);
+    if(post.Sahkoposti === loggedUser){
+      li.appendChild(modButton);
+      li.appendChild(delButton);
+    }else{
+      console.log('No match!');
+    }
     ul.appendChild(li);
   });
 };
@@ -112,6 +122,23 @@ const getPost = async () => {
     const data = await response.json();
     console.log(data);
     createPost(data);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
+const getLoggedUser = async () => {
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/post/logged', options);
+    const data = await response.json();
+    console.log('Logged user: ' + data);
+    return data;
   }
   catch (e) {
     console.log(e.message);
