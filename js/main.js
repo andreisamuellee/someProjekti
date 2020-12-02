@@ -159,8 +159,4 @@ openFormBtn.addEventListener('click', () => {
   document.getElementById('openModal').style.display = 'block';
 });
 
-if (sessionStorage.getItem('token')) {
   getPost();
-}else{
-  window.location.href = 'login.html';
-}
