@@ -14,12 +14,12 @@ const createPost = (data) => {
   ul.innerHTML = '';
   data.forEach((post) => {
     const img = document.createElement('img');
-    img.src = url + '/thumbnails/' + post.filename;
+    img.src = url + '/thumbnails/' + post.KuvaTiedosto;
     img.alt = post.Otsikko;
     img.classList.add('resp');
 
     img.addEventListener('click', () => {
-      modalImage.src = url + '/' + post.filename;
+      modalImage.src = url + '/' + post.KuvaTiedosto;
       imageModal.alt = post.Otsikko;
       imageModal.classList.toggle('hide');
       /*try {
