@@ -29,10 +29,11 @@
     padding: 0;
     overflow: hidden;
     background-color: #f6511d;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
+
 }
 
 .navbar div{
@@ -223,7 +224,6 @@
         flex-direction: column;
         width: auto;
         height: 100%;
-        position: fixed;
     }
 
     .content{
