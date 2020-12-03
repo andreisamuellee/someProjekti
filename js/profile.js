@@ -14,13 +14,6 @@ const createPost = (data) => {
         modalImage.src = url + '/' + post.KuvaTiedosto;
         imageModal.alt = post.Otsikko;
         imageModal.classList.toggle('hide');
-        /*try {
-          const coords = JSON.parse(post.coords);
-          // console.log(coords);
-          addMarker(coords);
-        }
-        catch (e) {
-        }*/
       });
   
       const figure = document.createElement('figure').appendChild(img);
@@ -33,14 +26,12 @@ const createPost = (data) => {
       p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
       const p2 = document.createElement('p');
       p2.innerHTML = post.Tiedot;
-  //moment.js aikaleimoihin
+      
       const likeButton = document.createElement('button');
       likeButton.innerHTML = 'Like';
       likeButton.addEventListener('click', () =>{
-        //a code which calls a put method of the postRoute
       });
   
-      //Needs a code that detects if the logged user is the creator of the post. Not used yet.
       const modButton = document.createElement('button');
       modButton.innerHTML = 'Modify';
       modButton.addEventListener('click', () => {
@@ -53,7 +44,6 @@ const createPost = (data) => {
         inputs[5].value = post.post_id;
       });
   
-      //Needs a code that detects if the logged user is the creator of the post. Not used yet.
       const delButton = document.createElement('button');
       delButton.innerHTML = 'Delete';
       delButton.addEventListener('click', async () => {
@@ -87,7 +77,7 @@ const createPost = (data) => {
     });
   };
 
-const getPost = async () => {
+  const getPost = async () => {
     console.log('getPost token ', sessionStorage.getItem('token'));
     try {
       const options = {
@@ -95,7 +85,7 @@ const getPost = async () => {
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
       };
-      const response = await fetch(url + '/post', options);
+      const response = await fetch(url + '/post/own', options);
       const data = await response.json();
       console.log(data);
       createPost(data);
