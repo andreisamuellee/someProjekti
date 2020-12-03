@@ -18,6 +18,11 @@ const post_get = async (req, res) => {
   res.json(post);
 };
 
+const post_get_logged_user = async (req, res) => {
+  const user = await req.user.Sahkoposti;
+  res.json(user);
+};
+
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
@@ -102,6 +107,7 @@ const get_post_comments = async (req, res) => {
 module.exports = {
   post_list_get,
   post_get,
+  post_get_logged_user,
   create_post,
   post_update_put,
   post_delete,
@@ -110,6 +116,7 @@ module.exports = {
   comment_delete,
   comment_get,
   get_post_comments,
+
 
 };
 

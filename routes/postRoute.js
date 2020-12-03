@@ -25,7 +25,9 @@ const injectFile = (req, res, next) => {
 
 router.get('/', postController.post_list_get);
 
-router.get('/:id', postController.post_get);
+router.get('/user/:id', postController.post_get);
+
+router.get('/logged', postController.post_get_logged_user);
 
 //inside router post =  
 router.post('/', upload.single('image'), injectFile, postController.make_thumbnail, [
