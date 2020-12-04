@@ -60,7 +60,7 @@ const addPost = async (params) => {
 const updatePost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'UPDATE postaus SET otsikko = ?, katuosoite = ?, tiedot = ?, paikkakunta = ? WHERE postausID = ?',
+        'UPDATE postaus SET Otsikko = ?, Katuosoite = ?, Tiedot = ?, Paikkakunta = ? WHERE PostausID = ?',
         params
     );
     console.log('rows', rows);
@@ -97,9 +97,23 @@ const addPhoto = async (params) => {
   }
 }
 
+const updatePhoto = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE Kuva SET KuvaTiedosto = ? WHERE PostausID = ?',
+        params
+    );
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
+
 const deletePhoto = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM kuva WHERE postausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -243,5 +257,6 @@ module.exports = {
   addTag,
   deleteTag,
   addPhoto,
+  updatePhoto,
   deletePhoto
 };
