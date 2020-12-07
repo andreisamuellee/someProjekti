@@ -1,6 +1,10 @@
 'use strict';
 const ul = document.querySelector('.ownPostContent');
 const url = 'http://localhost:3000';
+const user = JSON.parse(sessionStorage.getItem('user'));
+document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
+document.querySelector('#bio').innerHTML=user.Bio;
+document.querySelector('.profilePic').src=user.Profiilikuva;
 
 const createPost = (data) => {
 
@@ -96,24 +100,26 @@ const createPost = (data) => {
     catch (e) {
       console.log(e.message);
     }
-  };
 
-  const getLoggedUsername = async () => {
-    try {
-      const options = {
-        headers: {
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-      };
-      const response = await fetch(url + '/post/logged', options);
-      const data = await response.json();
-      console.log('Logged user: ' + data);
-      return data;
-    }
-    catch (e) {
-      console.log(e.message);
-    }
-  };
+
+ };
+
+  // const getLoggedUsername = async () => {
+  //   try {
+  //     const options = {
+  //       headers: {
+  //         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+  //       },
+  //     };
+  //     const response = await fetch(url + '/post/logged', options);
+  //     const data = await response.json();
+  //     console.log('Logged user: ' + data);
+  //     return data;
+  //   }
+  //   catch (e) {
+  //     console.log(e.message);
+  //   }
+  // };
 
 if (sessionStorage.getItem('token')) {
     getPost();
