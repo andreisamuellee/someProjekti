@@ -18,6 +18,11 @@ const post_get = async (req, res) => {
   res.json(post);
 };
 
+const post_get_logged_user = async (req, res) => {
+  const user = await req.user.Sahkoposti;
+  res.json(user);
+};
+
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
@@ -42,14 +47,18 @@ const post_update_put = async (req, res) => {
     return res.status(400).json({errors: errors.array()});
   }
   // object destructuring
-  const {otsikko, katuosoite, tiedot, paikkakunta, postausid} = req.body;
-  const params = [otsikko, katuosoite, tiedot, paikkakunta, postausid];
+  const {Otsikko, Katuosoite, Tiedot, Paikkakunta, PostausID} = req.body;
+  const params = [Otsikko, Katuosoite, Tiedot, Paikkakunta, PostausID];
   const post = await postModel.updatePost(params);
+  //const params2 = [req.file.filename, post.insertId];
+  //console.log(params2);
+  //const image = await postModel.updatePhoto(params2);
   res.json({message: 'modify ok'});
 };
 
 const post_delete = async (req, res) => {
   const id = req.params.id;
+  const photo = await postModel.deletePhoto(id);
   const post = await postModel.deletePost(id);
   res.json(post);
 };
@@ -65,6 +74,14 @@ const make_thumbnail = async (req, res, next) => {
   } catch (e) {
     res.status(400).json({errors: e.message});
   }
+};
+
+const change_photo = async (req, res) => {
+  const photo = await postModel.deletePhoto(req.body.PostausID);
+  const params = [req.file.filename, req.body.PostausID];
+  console.log(params);
+  const image = await postModel.addPhoto(params);
+  res.json({message: 'Photo change ok'});
 };
 
 const create_comment = async (req, res) => {
@@ -102,6 +119,7 @@ const get_post_comments = async (req, res) => {
 module.exports = {
   post_list_get,
   post_get,
+  post_get_logged_user,
   create_post,
   post_update_put,
   post_delete,
@@ -110,6 +128,8 @@ module.exports = {
   comment_delete,
   comment_get,
   get_post_comments,
+  change_photo,
+
 
 };
 

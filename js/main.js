@@ -9,8 +9,9 @@ const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const modForm = document.querySelector('#modForm');
 
-const createPost = (data) => {
+const createPost = async (data) => {
 
+  const loggedUser = await getLoggedUser();
   ul.innerHTML = '';
   data.forEach((post) => {
     const img = document.createElement('img');
@@ -51,13 +52,15 @@ const createPost = (data) => {
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
+      location.href='#modModal';
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = post.name;
-      inputs[1].value = post.address;
-      inputs[2].value = post.city;
-      inputs[3].value = post.info;
-      inputs[4].value = post.image;
-      inputs[5].value = post.post_id;
+      const textarea = modForm.querySelector('#modInfo');
+      textarea.value = post.Tiedot;
+      inputs[0].value = post.Otsikko;
+      inputs[1].value = post.Katuosoite;
+      inputs[2].value = post.Paikkakunta;
+      inputs[3].value = null;
+      inputs[4].value = post.PostausID;
     });
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
@@ -71,7 +74,7 @@ const createPost = (data) => {
         },
       };
       try {
-        const response = await fetch(url + '/post/' + post.post_id, fetchOptions);
+        const response = await fetch(url + '/post/user/' + post.PostausID, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
         getPost();
@@ -84,12 +87,21 @@ const createPost = (data) => {
     const li = document.createElement('li');
     li.classList.add('postItem');
 
+    console.log('Log '+  loggedUser);
+    console.log('Post-sposti ' + post.Sahkoposti);
+
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p0);
     li.appendChild(p1);
     li.appendChild(p2);
     li.appendChild(likeButton);
+    if(post.Sahkoposti === loggedUser){
+      li.appendChild(modButton);
+      li.appendChild(delButton);
+    }else{
+      console.log('No match!');
+    }
     ul.appendChild(li);
   });
 };
@@ -117,6 +129,23 @@ const getPost = async () => {
   }
 };
 
+const getLoggedUser = async () => {
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/post/logged', options);
+    const data = await response.json();
+    console.log('Logged user: ' + data);
+    return data;
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(postForm);
@@ -132,11 +161,12 @@ postForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('add response', json);
   getPost();
-  document.getElementById('openModal').style.display = 'none';
+  location.href='#close';
 });
 
 modForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
+  await changePhoto(modForm);
   const data = serializeJson(modForm);
   const fetchOptions = {
     method: 'PUT',
@@ -152,7 +182,23 @@ modForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('modify response', json);
   getPost();
+  location.href='#close';
 });
+
+const changePhoto = async (formdata) => {
+  const imgData = new FormData(formdata);
+  console.log('Kuvadata ' + imgData);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: imgData,
+  };
+  const response = await fetch(url + '/post/photoChange', fetchOptions);
+  const json = await response.json();
+  console.log('add photoresponse', json);
+};
 
 openFormBtn.addEventListener('click', () => {
   document.getElementById('openModal').style.display = 'block';
