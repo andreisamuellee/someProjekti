@@ -28,6 +28,11 @@ const post_own_get = async (req, res) => {
   res.json(posts);
 };
 
+const get_name = async (req, res) => {
+  const user = await req.user.Kayttajatunnus;
+  res.json(user);
+};
+
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
@@ -124,7 +129,7 @@ module.exports = {
   comment_delete,
   comment_get,
   get_post_comments,
-
+  get_name,
 
 };
 

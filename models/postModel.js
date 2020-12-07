@@ -32,7 +32,7 @@ const getOwnPosts = async (id) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     const [rows] = await promisePool.query('SELECT Postaus.PostausID, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Sahkoposti, KuvaTiedosto ' +
-        'FROM Postaus INNER JOIN Kuva WHERE Postaus.PostausID = Kuva.PostausID AND kayttaja.Sahkoposti = ?;', [id]);
+        'FROM Postaus INNER JOIN Kuva WHERE Postaus.PostausID = Kuva.PostausID AND Sahkoposti = ?;', [id]);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -239,6 +239,17 @@ const deleteTag = async (id) => {
   }
 }
 
+const getName = async (Kayttajanimi) => {
+  try {
+    const [rows] = await promisePool.query('SELECT kayttaja.Kayttajanimi FROM kayttaja;', [Kayttajanimi]);
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+};
+
 //INSERT INTO tykkays (sahkoposti, postausID) VALUES ('topi@g.com', 1);
 
 module.exports = {
@@ -258,5 +269,6 @@ module.exports = {
   addTag,
   deleteTag,
   addPhoto,
-  deletePhoto
+  deletePhoto,
+  getName,
 };

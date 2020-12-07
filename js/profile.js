@@ -1,9 +1,12 @@
 'use strict';
+const ul = document.querySelector('.ownPostContent');
 const url = 'http://localhost:3000';
 
 const createPost = (data) => {
 
     ul.innerHTML = '';
+    //const post = JSON.parse(post);
+    //console.log(post);
     data.forEach((post) => {
       const img = document.createElement('img');
       img.src = url + '/thumbnails/' + post.KuvaTiedosto;
@@ -100,3 +103,20 @@ if (sessionStorage.getItem('token')) {
   }else{
     window.location.href = 'login.html';
   }
+
+  const getLoggedUsername = async () => {
+    try {
+      const options = {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      };
+      const response = await fetch(url + '/post/logged', options);
+      const data = await response.json();
+      console.log('Logged user: ' + data);
+      return data;
+    }
+    catch (e) {
+      console.log(e.message);
+    }
+  };
