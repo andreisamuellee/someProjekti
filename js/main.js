@@ -17,7 +17,6 @@ const createPost = (data) => {
     img.src = url + '/thumbnails/' + post.KuvaTiedosto;
     img.alt = post.Otsikko;
     img.classList.add('resp');
-
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + post.KuvaTiedosto;
       imageModal.alt = post.Otsikko;
