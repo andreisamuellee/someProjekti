@@ -58,18 +58,18 @@
         <h2>Post a spot</h2>
         <form id="modForm" enctype="multipart/form-data">
             <label for="name">Name:</label><br>
-            <input type="text" id="modName" name="name" required><br>
+            <input type="text" id="modName" name="Otsikko" required><br>
             <label for="address">Address:</label><br>
-            <input type="text" id="modAddress" name="address" required><br>
+            <input type="text" id="modAddress" name="Katuosoite" required><br>
             <label for="city">City:</label><br>
-            <input type="text" id="modCity" name="city" required><br>
+            <input type="text" id="modCity" name="Paikkakunta" required><br>
             <label for="info">Info:</label><br>
-            <textarea id="modInfo" name="info" placeholder="Tell something about this spot"></textarea><br><br>
+            <textarea id="modInfo" name="Tiedot" placeholder="Tell something about this spot"></textarea>
             <input type="file"
-                   name="image"
+                   name="KuvaTiedosto"
                    accept="image/*"
                    placeholder="Choose file"><br><br>
-            <input type="hidden" name="id">
+            <input type="hidden" name="PostausID">
             <button class="modify" type="submit">Save changes</button>
         </form>
     </div>

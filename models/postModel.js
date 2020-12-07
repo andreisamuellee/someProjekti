@@ -1,13 +1,18 @@
 'use strict';
 const pool = require('../db/db');
 const promisePool = pool.promise();
+const moment = require('moment');
 
 const getAllPosts = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Sahkoposti, KuvaTiedosto ' +
-        'FROM Postaus INNER JOIN Kuva WHERE Postaus.PostausID = Kuva.PostausID;');
-    console.log('rows', rows);
+    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
+        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti;');
+    console.log('rows11', moment(rows[1].Aikaleima).format('MMMM Do YYYY, h:mm'));
+    let i;
+    for(i = 0; i < rows.length; i++){
+      rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')
+    }
     return rows;
   } catch (e) {
     console.log('postausModel error', e.message);
@@ -74,7 +79,7 @@ const addPost = async (params) => {
 const updatePost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'UPDATE postaus SET otsikko = ?, katuosoite = ?, tiedot = ?, paikkakunta = ? WHERE postausID = ?',
+        'UPDATE postaus SET Otsikko = ?, Katuosoite = ?, Tiedot = ?, Paikkakunta = ? WHERE PostausID = ?',
         params
     );
     console.log('rows', rows);
@@ -111,9 +116,23 @@ const addPhoto = async (params) => {
   }
 }
 
+const updatePhoto = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE Kuva SET KuvaTiedosto = ? WHERE PostausID = ?',
+        params
+    );
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
+
 const deletePhoto = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM kuva WHERE postausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -270,4 +289,6 @@ module.exports = {
   addPhoto,
   deletePhoto,
   getName,
+  updatePhoto,
+  deletePhoto
 };

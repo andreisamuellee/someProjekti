@@ -1,22 +1,18 @@
 'use strict';
 const url = 'http://localhost:3000';
 
-let searchBar = document.getElementById("searchBar");
-let searchBtn = document.getElementById("searchBtn");
-
-searchBtn.onclick = () => {
-    search();
-}
-
-function search(){
-    console.log(searchBar.value);
-}
-
 const createPost = (data) => {
-
-    data.forEach((post) => {
-        postsToMap(post);
-    });
+        postsToMap(data);
+        let i = 0;
+        data.forEach((post) => {
+          const num = post.PostausID;
+          console.log(document.querySelector('#id'+num));
+          let img = document.querySelector('#id'+post.PostausID);
+          console.log(img);
+          img.addEventListener('click', () => {
+            console.log('Klikkasit kuvaa '+post.PostausID);
+          });
+        });
   };
 
 const getPost = async () => {
@@ -36,6 +32,4 @@ const getPost = async () => {
     console.log(e.message);
   }
 };
-
 getPost();
-

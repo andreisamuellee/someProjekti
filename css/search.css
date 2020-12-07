@@ -1,7 +1,10 @@
 #map {
   width: 100%;
-  height: calc(100vh - 156px);
-  margin-top: 24px;
+  height: 100vh;
+}
+
+.mapbox-marker-drag-icon-step {
+  background-color: green !important;
 }
 
 .mapboxgl-popup-content{
@@ -12,9 +15,29 @@
   box-shadow:         2px 5px 5px 1px #191a1a;
 }
 
+.directions-control.directions-control-directions{
+  visibility: hidden !important;
+}
+
+.mapboxgl-user-location-dot, .mapboxgl-user-location-dot::before {
+  background-color: #f6511d !important;
+}
+
+.mapbox-form-label {
+  background: #f6511d !important;
+}
+
+.mapbox-directions-origin .mapbox-form-label {
+  background-color: #454545 !important;
+}
+
 .mapboxgl-popup-close-button{
   right: 7px;
   top: 2px;
+}
+
+.mapboxgl-ctrl-directions{
+  visibility: collapse;
 }
 
 .markerImg {
@@ -114,7 +137,7 @@
 
   #map {
     width: calc(100% - 72px);
-    height: calc(100vh - 89px);
+    height: 100vh;
     float: right;
   }
 
