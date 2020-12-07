@@ -8573,7 +8573,7 @@
                 'type': 'circle',
                 'source': 'directions',
                 'paint': {
-                    'circle-radius': 12,
+                    'circle-radius': 0,
                     'circle-color': '#f6511d'
                 },
                 'filter': ['all', ['in', '$type', 'Point'], ['in', 'marker-symbol', 'A']]

@@ -1,17 +1,6 @@
 'use strict';
 const url = 'http://localhost:3000';
 
-let searchBar = document.getElementById("searchBar");
-let searchBtn = document.getElementById("searchBtn");
-
-searchBtn.onclick = () => {
-    search();
-}
-
-function search(){
-    console.log(searchBar.value);
-}
-
 const createPost = (data) => {
         postsToMap(data);
         let i = 0;

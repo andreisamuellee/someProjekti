@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYW5kcmVpaCIsImEiOiJja2h2czJrdTUwaTNyMzRtb3JrZjVvYnpmIn0.QGfO5Fq0XigYlW9b89K4aA";
 
@@ -27,14 +28,11 @@ map.on('load', function () {
   geolocate.trigger();
 });
 
-const locationCheck = false;
-if (locationCheck === false) {
 geolocate.on('geolocate', (e) => {
     console.log('user location: '+e.coords.longitude, e.coords.latitude)
     directions.setOrigin(e.coords.longitude+','+e.coords.latitude);
-    locationCheck = true;
 });
-}
+
 
 function postsToMap(post) {
   let i = 0;

@@ -1,7 +1,6 @@
 #map {
   width: 100%;
-  height: calc(100vh - 156px);
-  margin-top: 24px;
+  height: 100vh;
 }
 
 .mapbox-marker-drag-icon-step {
@@ -138,7 +137,7 @@
 
   #map {
     width: calc(100% - 72px);
-    height: calc(100vh - 89px);
+    height: 100vh;
     float: right;
   }
 
