@@ -1,13 +1,18 @@
 'use strict';
 const pool = require('../db/db');
 const promisePool = pool.promise();
+const moment = require('moment');
 
 const getAllPosts = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Sahkoposti, KuvaTiedosto ' +
-        'FROM Postaus INNER JOIN Kuva WHERE Postaus.PostausID = Kuva.PostausID;');
-    console.log('rows', rows);
+    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
+        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti;');
+    console.log('rows11', moment(rows[1].Aikaleima).format('MMMM Do YYYY, h:mm'));
+    let i;
+    for(i = 0; i < rows.length; i++){
+      rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')
+    }
     return rows;
   } catch (e) {
     console.log('postausModel error', e.message);
