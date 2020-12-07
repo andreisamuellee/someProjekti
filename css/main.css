@@ -33,6 +33,7 @@
     bottom: 0;
     width: 100%;
     display: flex;
+
 }
 
 .navbar div{
@@ -181,6 +182,36 @@
 
 .postItem p{
     font-size: 1.3rem;
+}
+
+.hide {
+    display: none !important;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+}
+
+.modal img {
+    display: block;
+    height: 80vh;
+    margin: auto;
+    padding-top: 10vh;
+}
+
+.close-image {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: #fff;
+    text-shadow: #000;
+    font-size: 2em;
 }
 
 @media only screen and (min-width: 992px) {
