@@ -13,10 +13,17 @@ function search(){
 }
 
 const createPost = (data) => {
-
-    data.forEach((post) => {
-        postsToMap(post);
-    });
+        postsToMap(data);
+        let i = 0;
+        data.forEach((post) => {
+          const num = post.PostausID;
+          console.log(document.querySelector('#id'+num));
+          let img = document.querySelector('#id'+post.PostausID);
+          console.log(img);
+          img.addEventListener('click', () => {
+            console.log('Klikkasit kuvaa '+post.PostausID);
+          });
+        });
   };
 
 const getPost = async () => {
@@ -36,6 +43,4 @@ const getPost = async () => {
     console.log(e.message);
   }
 };
-
 getPost();
-
