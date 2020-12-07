@@ -3,8 +3,19 @@ const ul = document.querySelector('.ownPostContent');
 const url = 'http://localhost:3000';
 const user = JSON.parse(sessionStorage.getItem('user'));
 document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
-document.querySelector('#bio').innerHTML=user.Bio;
-document.querySelector('.profilePic').src=user.Profiilikuva;
+
+if (!document.querySelector('#bio') == null) {
+  document.querySelector('#bio').innerHTML=user.Bio;
+} else {
+  document.querySelector('#bio').innerHTML="My name is " + user.Kayttajatunnus + " and I use Skater app";
+}
+
+if (!document.querySelector('.profilePic') == null) {
+  document.querySelector('.profilePic').src=user.Profiilikuva;
+} else {
+  document.querySelector('.profilePic').src="../img/Profile Picture.PNG";
+}
+
 
 const createPost = (data) => {
 
