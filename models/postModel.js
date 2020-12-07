@@ -242,10 +242,9 @@ const deleteTag = async (id) => {
 const getName = async (Kayttajanimi) => {
   try {
     const [rows] = await promisePool.query('SELECT kayttaja.Kayttajanimi FROM kayttaja;', [Kayttajanimi]);
-    console.log('rows', rows);
     return rows;
   } catch (e) {
-    console.log('postausModel error', e.message);
+    console.log('getName error', e.message);
     return { error: 'DB Error' };
   }
 };

@@ -98,12 +98,6 @@ const createPost = (data) => {
     }
   };
 
-if (sessionStorage.getItem('token')) {
-    getPost();
-  }else{
-    window.location.href = 'login.html';
-  }
-
   const getLoggedUsername = async () => {
     try {
       const options = {
@@ -120,3 +114,11 @@ if (sessionStorage.getItem('token')) {
       console.log(e.message);
     }
   };
+
+if (sessionStorage.getItem('token')) {
+    getPost();
+  }else{
+    window.location.href = 'login.html';
+  }
+
+  
