@@ -10,7 +10,9 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
-app.use(express.static('uploads'));
+app.use(express.static('public'));
+app.use(express.static('html'));
+
 app.use('/thumbnails', express.static('thumbnails'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
