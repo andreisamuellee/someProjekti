@@ -33,6 +33,8 @@ const createPost = async (data) => {
 
     const figure = document.createElement('figure').appendChild(img);
 
+    const h4 = document.createElement('h4');
+    h4.innerHTML = post.Kayttajatunnus;
     const h2 = document.createElement('h2');
     h2.innerHTML = post.Otsikko;
     const p0 = document.createElement('p');
@@ -90,6 +92,7 @@ const createPost = async (data) => {
     console.log('Log '+  loggedUser);
     console.log('Post-sposti ' + post.Sahkoposti);
 
+    li.appendChild(h4);
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p0);
