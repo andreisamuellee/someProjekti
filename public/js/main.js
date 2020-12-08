@@ -1,5 +1,5 @@
 'use strict';
-const url = 'http://localhost:3000';
+const url = '.';
 
 const postForm = document.getElementById('postForm');
 const ul = document.querySelector('.postContent');
