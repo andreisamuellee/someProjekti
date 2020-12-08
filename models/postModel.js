@@ -8,7 +8,7 @@ const getAllPosts = async () => {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
         'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti;');
-    console.log('rows11', moment(rows[1].Aikaleima).format('MMMM Do YYYY, h:mm'));
+    console.log('rows11', moment(rows[0].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
       rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')

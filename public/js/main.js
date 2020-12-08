@@ -2,7 +2,7 @@
 const url = '.';
 
 const postForm = document.getElementById('postForm');
-const ul = document.querySelector('.postContent');
+const ul = document.querySelector('.content');
 const openFormBtn = document.querySelector('.fa-camera-retro');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
@@ -86,26 +86,26 @@ const createPost = async (data) => {
       }
     });
 
-    const li = document.createElement('li');
-    li.classList.add('postItem');
+    const div = document.createElement('div');
+    div.classList.add('postItem');
 
     console.log('Log '+  loggedUser);
     console.log('Post-sposti ' + post.Sahkoposti);
 
-    li.appendChild(h4);
-    li.appendChild(h2);
-    li.appendChild(figure);
-    li.appendChild(p0);
-    li.appendChild(p1);
-    li.appendChild(p2);
-    li.appendChild(likeButton);
+    div.appendChild(h4);
+    div.appendChild(h2);
+    div.appendChild(figure);
+    div.appendChild(p0);
+    div.appendChild(p1);
+    div.appendChild(p2);
+    div.appendChild(likeButton);
     if(post.Sahkoposti === loggedUser){
-      li.appendChild(modButton);
-      li.appendChild(delButton);
+      div.appendChild(modButton);
+      div.appendChild(delButton);
     }else{
       console.log('No match!');
     }
-    ul.appendChild(li);
+    ul.appendChild(div);
   });
 };
 
