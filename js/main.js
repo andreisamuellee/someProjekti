@@ -13,7 +13,7 @@ const createPost = async (data) => {
 
   const loggedUser = await getLoggedUser();
   ul.innerHTML = '';
-  data.forEach((post) => {
+  for (const post of data) {
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + post.KuvaTiedosto;
     img.alt = post.Otsikko;
@@ -44,7 +44,35 @@ const createPost = async (data) => {
     p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
-//moment.js aikaleimoihin
+
+    let div = document.createElement('div');
+    const comments = await getComments(post.PostausID);
+
+    comments.forEach((comment) => {
+      const p = document.createElement('p');
+      p.classList.add('comment');
+      p.innerHTML = '<b>' + comment.Kayttajatunnus + ': ' + '</b>' + comment.Teksti;
+      div.appendChild(p);
+    });
+
+    const showComments = document.createElement('button');
+    const commentCount = comments.length;
+    console.log('Commentcount: ' + commentCount);
+    if(commentCount === 1){
+      showComments.innerHTML = commentCount + ' Comment';
+    }else{
+      showComments.innerHTML = commentCount + ' Comments';
+    }
+    showComments.classList.add('showComments');
+    showComments.addEventListener('click', () => {
+      if (getComputedStyle(div, null).display === 'none' && commentCount !== 0) {
+        div.style.display = 'block';
+      } else {
+        div.style.display = 'none';
+      }
+    });
+
+    //moment.js aikaleimoihin
     const likeButton = document.createElement('button');
     likeButton.innerHTML = 'Like';
     likeButton.addEventListener('click', () =>{
@@ -87,11 +115,48 @@ const createPost = async (data) => {
       }
     });
 
+    const commentForm = document.createElement('form');
+    commentForm.setAttribute('enctype', 'multipart/form-data');
+    commentForm.classList.add('commentForm');
+
+    const commentInput = document.createElement('input');
+    commentInput.setAttribute('type', 'text');
+    commentInput.setAttribute('name', 'Kommentti');
+
+    const IDInput = document.createElement('input');
+    IDInput.setAttribute('type', 'hidden');
+    IDInput.setAttribute('name', 'PostausID');
+    IDInput.value = post.PostausID;
+
+    const commentButton = document.createElement('button');
+    commentButton.setAttribute('type', 'submit');
+    commentButton.innerHTML = 'Send';
+
+    commentForm.appendChild(commentInput);
+    commentForm.appendChild(IDInput);
+    commentForm.appendChild(commentButton);
+
+    commentForm.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      console.log('Kommentti ' + JSON.stringify(serializeJson(commentForm)));
+      const cfd = JSON.stringify(serializeJson(commentForm));
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: cfd,
+      };
+      const response = await fetch(url + '/post/comment', fetchOptions);
+      const json = await response.json();
+      console.log('add comment response', json);
+      getPost();
+    });
+
     const li = document.createElement('li');
     li.classList.add('postItem');
 
-    console.log('Log '+  loggedUser);
-    console.log('Post-sposti ' + post.Sahkoposti);
 
     li.appendChild(h4);
     li.appendChild(h2);
@@ -106,8 +171,11 @@ const createPost = async (data) => {
     }else{
       console.log('No match!');
     }
+    li.appendChild(showComments);
+    li.appendChild(div);
+    li.appendChild(commentForm);
     ul.appendChild(li);
-  });
+  }
 };
 
 close.addEventListener('click', (evt) => {
@@ -150,10 +218,27 @@ const getLoggedUser = async () => {
   }
 };
 
+const getComments = async (id) => {
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/post/comment/' + id, options);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
+  console.log('PostForm ' + postForm);
   const fd = new FormData(postForm);
-  console.log(fd);
   const fetchOptions = {
     method: 'POST',
     headers: {

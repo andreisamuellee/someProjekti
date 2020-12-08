@@ -29,6 +29,8 @@ router.get('/user/:id', postController.post_get);
 
 router.get('/logged', postController.post_get_logged_user);
 
+router.get('/comment/:id', postController.get_post_comments);
+
 //inside router post =  
 router.post('/', upload.single('image'), injectFile, postController.make_thumbnail, [
   body('otsikko', 'vaadittu kenttä').isLength({min: 1}),
@@ -41,6 +43,10 @@ router.post('/', upload.single('image'), injectFile, postController.make_thumbna
 router.post('/photoChange', upload.single('KuvaTiedosto'), injectFile, postController.make_thumbnail, [
   body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.change_photo);
+
+router.post('/comment', [
+  body('Kommentti', 'vaadittu kenttä').isLength({min: 1}),
+], postController.create_comment);
 
 router.put('/', [
   body('Otsikko', 'vaadittu kenttä').isLength({min: 1}),
