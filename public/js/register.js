@@ -1,5 +1,5 @@
 const addUserForm = document.querySelector('#addUserForm')
-const url = 'http://localhost:3000' // palvelimen osote
+const url = '.' // palvelimen osote
 
 addUserForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();

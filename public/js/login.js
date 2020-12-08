@@ -1,5 +1,5 @@
 const loginForm = document.querySelector('#loginForm')
-const url = 'http://localhost:3000' // palvelimen osote
+const url = '.' // palvelimen osote
 
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
