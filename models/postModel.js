@@ -206,6 +206,18 @@ const addLike = async (params) => {
   }
 }
 
+const getPostLikes = async (id) => {
+  try {
+    const [rows] = await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
+        [id]);
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
+
 const deleteLike = async (params) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM tykkays WHERE postausID = ? AND sahkoposti = ?',
