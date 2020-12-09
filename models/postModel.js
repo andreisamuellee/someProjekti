@@ -91,7 +91,7 @@ const updatePost = async (params) => {
 const updateProfilePhoto = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'UPDATE kayttaja SET Profiilikuva = ? WHERE Sahkoposti = ?',
+        'UPDATE Kayttaja SET Profiilikuva = ? WHERE Sahkoposti = ?',
         params
     );
     console.log('rows', rows);
@@ -169,7 +169,7 @@ const deleteProfilePhoto = async (sahkoposti) => {
 const addComment = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kommentit (teksti, aikaleima, postausID, sahkoposti) VALUES (?,NOW(),?,?)',
+        'INSERT INTO Kommentit (Teksti, Aikaleima, PostausID, Sahkoposti) VALUES (?,NOW(),?,?)',
         params
     );
     console.log('rows', rows);
@@ -206,7 +206,7 @@ const getComment = async (id) => {
 
 const getPostComments = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM kommentit INNER JOIN kayttaja ON kommentit.sahkoposti = kayttaja.sahkoposti WHERE postausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kommentit INNER JOIN Kayttaja ON Kommentit.Sahkoposti = Kayttaja.Sahkoposti WHERE PostausID = ?',
         [id]);
     console.log('commentRows', rows);
     let i;
@@ -287,7 +287,7 @@ const addTag = async (params) => {
 
 const deleteTag = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM tagit WHERE tagID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM Tagit WHERE TagID = ?',
         [id]
     );
     console.log('rows', rows);
@@ -300,7 +300,7 @@ const deleteTag = async (id) => {
 
 const getName = async (Kayttajanimi) => {
   try {
-    const [rows] = await promisePool.query('SELECT kayttaja.Kayttajanimi FROM kayttaja;', [Kayttajanimi]);
+    const [rows] = await promisePool.query('SELECT Kayttaja.Kayttajanimi FROM Kayttaja;', [Kayttajanimi]);
     return rows;
   } catch (e) {
     console.log('getName error', e.message);
