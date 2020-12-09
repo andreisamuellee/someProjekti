@@ -1,4 +1,5 @@
 const logOut = document.querySelector('.log-out');
+const logOutDiv = document.querySelector('#logOutDiv');
 
 logOut.addEventListener('click', async (evt) => {
   evt.preventDefault();
@@ -22,3 +23,9 @@ logOut.addEventListener('click', async (evt) => {
     }
   }
 });
+
+if (!sessionStorage.getItem('token')) {
+  logOutDiv.style.visibility='collapse';
+} else {
+  logOut.style.display='block';
+}
