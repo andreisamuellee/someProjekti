@@ -6,9 +6,9 @@ const moment = require('moment');
 const getAllPosts = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto, count(tykkays.postausID) ' +
+    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto, COUNT(Tykkays.PostausID) ' +
         'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti '+
-        'LEFT JOIN tykkays ON Postaus.postausID = tykkays.postausID GROUP BY Postaus.postausID;');
+        'LEFT JOIN Tykkays ON Postaus.PostausID = Tykkays.PostausID GROUP BY Postaus.PostausID;');
     console.log('rows11', moment(rows[0].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
@@ -20,26 +20,14 @@ const getAllPosts = async () => {
     return { error: 'DB Error' };
   }
 };
-/*
+
 const getPost = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
-      [id]);
-    console.log('rows', rows);
-    return rows;
-  } catch (e) {
-    console.log('postausModel error', e.message);
-    return { error: 'DB Error' };
-  }
-}
-*/
-const getPost = async (id) => {
-  try {
-    const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Postaus WHERE PostausID = ?',
         [id]);
-    rows.push(await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
+    rows.push(await promisePool.execute('SELECT * FROM Kommentit WHERE KommenttiID = ?',
         [id]));
-    rows.push(await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
+    rows.push(await promisePool.execute('SELECT * FROM Tykkays WHERE PostausID = ?',
         [id]));
     console.log('rows', rows);
     return rows;
@@ -52,7 +40,7 @@ const getPost = async (id) => {
 const addPost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO postaus (otsikko, katuosoite, aikaleima, tiedot, paikkakunta, sahkoposti) VALUES (?,?,NOW(),?,?,?);',
+        'INSERT INTO Postaus (Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Sahkoposti) VALUES (?,?,NOW(),?,?,?);',
         params
     );
     console.log('rows', rows);
@@ -66,7 +54,7 @@ const addPost = async (params) => {
 const updatePost = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'UPDATE postaus SET Otsikko = ?, Katuosoite = ?, Tiedot = ?, Paikkakunta = ? WHERE PostausID = ?',
+        'UPDATE Postaus SET Otsikko = ?, Katuosoite = ?, Tiedot = ?, Paikkakunta = ? WHERE PostausID = ?',
         params
     );
     console.log('rows', rows);
@@ -79,7 +67,7 @@ const updatePost = async (params) => {
 
 const deletePost = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM postaus WHERE postausID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM Postaus WHERE PostausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -92,7 +80,7 @@ const deletePost = async (id) => {
 const addPhoto = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kuva (kuvaTiedosto, postausID) VALUES (?,?)',
+        'INSERT INTO Kuva (KuvaTiedosto, PostausID) VALUES (?,?)',
         params
     );
     console.log('rows', rows);
@@ -119,7 +107,7 @@ const updatePhoto = async (params) => {
 
 const deletePhoto = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM kuva WHERE postausID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM Kuva WHERE PostausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -132,7 +120,7 @@ const deletePhoto = async (id) => {
 const addComment = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kommentit (teksti, aikaleima, postausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
+        'INSERT INTO Kommentit (Teksti, Aikaleima, PostausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
         params
     );
     console.log('rows', rows);
@@ -145,7 +133,7 @@ const addComment = async (params) => {
 
 const deleteComment = async (id) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM kommentit WHERE kommenttiID = ?',
+    const [rows] = await promisePool.execute('DELETE FROM Kommentit WHERE KommenttiID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -157,7 +145,7 @@ const deleteComment = async (id) => {
 
 const getComment = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kommentit WHERE KommenttiID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -169,7 +157,7 @@ const getComment = async (id) => {
 
 const getPostComments = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM kommentit WHERE postausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kommentit WHERE PostausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -182,7 +170,7 @@ const getPostComments = async (id) => {
 const addLike = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO tykkays (sahkoposti, postausID) VALUES (?,?)',
+        'INSERT INTO Tykkays (Sahkoposti, PostausID) VALUES (?,?)',
         params
     );
     console.log('rows', rows);
@@ -195,7 +183,7 @@ const addLike = async (params) => {
 
 const getPostLike = async (params) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ? AND sahkoposti = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
         params);
     console.log('rows', rows);
     return rows;
@@ -207,7 +195,7 @@ const getPostLike = async (params) => {
 
 const deleteLike = async (params) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM tykkays WHERE postausID = ? AND sahkoposti = ?',
+    const [rows] = await promisePool.execute('DELETE FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
         params
     );
     console.log('rows', rows);
@@ -220,7 +208,7 @@ const deleteLike = async (params) => {
 
 const getLikeCount = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT COUNT(postausID) FROM tykkays WHERE postausID = ?',
+    const [rows] = await promisePool.execute('SELECT COUNT(PostausID) FROM Tykkays WHERE PostausID = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -233,7 +221,7 @@ const getLikeCount = async (id) => {
 const addTag = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO tagit (tagID, tag) VALUES (?,?)',
+        'INSERT INTO Tagit (TagID, Tag) VALUES (?,?)',
         params
     );
     console.log('rows', rows);
