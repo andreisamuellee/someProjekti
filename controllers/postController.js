@@ -18,6 +18,7 @@ const post_get = async (req, res) => {
   res.json(post);
 };
 
+
 const post_get_logged_user = async (req, res) => {
   const user = await req.user.Sahkoposti;
   res.json(user);
@@ -61,6 +62,24 @@ const post_delete = async (req, res) => {
   const photo = await postModel.deletePhoto(id);
   const post = await postModel.deletePost(id);
   res.json(post);
+};
+
+const like_post = async (req, res) => {
+  const params = [req.user.Sahkoposti, req.params.id];
+  const like = await postModel.addLike(params);
+  res.json(like);
+};
+
+const like_get = async (req, res) => {
+  const params = [req.params.id, req.user.Sahkoposti];
+  const like = await postModel.getPostLike(params);
+  res.json(like);
+};
+
+const like_delete = async (req, res) => {
+  const params = [req.params.id, req.user.Sahkoposti];
+  const like = await postModel.deleteLike(params);
+  res.json(like);
 };
 
 const make_thumbnail = async (req, res, next) => {
@@ -129,8 +148,9 @@ module.exports = {
   comment_get,
   get_post_comments,
   change_photo,
-
-
+  like_post,
+  like_get,
+  like_delete,
 };
 
 
