@@ -7,12 +7,19 @@
   background-color: green !important;
 }
 
+.navIcon log-out {
+  padding: 0px;
+}
+
+
 .mapboxgl-popup-content{
   text-align: center;
-  padding: 5px;
+  padding: 0px;
   -moz-box-shadow:    2px 5px 5px 1px #191a1a;
   -webkit-box-shadow: 2px 5px 5px 1px #191a1a;
   box-shadow:         2px 5px 5px 1px #191a1a;
+  border-radius: 15px;
+  padding-bottom: 7px;
 }
 
 .directions-control.directions-control-directions{
@@ -44,7 +51,6 @@
   width: 100%;
   position: relative;
   z-index: 0;
-  border-radius: 3px;
 }
 
 .markerHeader {

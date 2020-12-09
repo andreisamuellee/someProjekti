@@ -6,8 +6,9 @@ const moment = require('moment');
 const getAllPosts = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
-        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti;');
+    const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto, count(tykkays.postausID) ' +
+        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti '+
+        'LEFT JOIN tykkays ON Postaus.postausID = tykkays.postausID GROUP BY Postaus.postausID;');
     console.log('rows11', moment(rows[0].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
@@ -168,6 +169,10 @@ const getPostComments = async (id) => {
     const [rows] = await promisePool.execute('SELECT * FROM kommentit INNER JOIN kayttaja ON kommentit.sahkoposti = kayttaja.sahkoposti WHERE postausID = ?',
         [id]);
     console.log('commentRows', rows);
+    let i;
+    for(i = 0; i < rows.length; i++){
+      rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')
+    }
     return rows;
   } catch (e) {
     console.log('postausModel error', e.message);
@@ -189,14 +194,14 @@ const addLike = async (params) => {
   }
 }
 
-const getPostLikes = async (id) => {
+const getPostLike = async (params) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
-        [id]);
+    const [rows] = await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ? AND sahkoposti = ?',
+        params);
     console.log('rows', rows);
     return rows;
   } catch (e) {
-    console.log('postausModel error', e.message);
+    console.log('getPostLike error', e.message);
     return { error: 'DB Error' };
   }
 }
@@ -268,6 +273,7 @@ module.exports = {
   addLike,
   deleteLike,
   getLikeCount,
+  getPostLike,
   addTag,
   deleteTag,
   addPhoto,

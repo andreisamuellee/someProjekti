@@ -56,23 +56,13 @@ router.put('/', [
   //body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.post_update_put);
 
+router.post('/like/:id', postController.like_post);
+
+router.get('/like/:id', postController.like_get);
+
 router.delete('/user/:id', postController.post_delete);
 
+router.delete('/like/:id', postController.like_delete);
 
-//same '/' address? might not work.
-
-/*
-router.post('/', upload.single('comment'), [
-  body('teksti', 'vaadittu kenttä').isLength({min: 1}),
-  body('postausID', 'vaadittu kenttä').isLength({min: 1}).isNumeric(),
-], postController.create_comment);
-
-router.delete('/:id', postController.comment_delete);
-
-router.get('/:id', postController.comment_get);
-
-//uses post id to get post comments
-router.get('/:id', postController.get_post_comments);
-*/
 
 module.exports = router;

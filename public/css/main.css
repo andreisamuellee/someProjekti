@@ -47,6 +47,7 @@
     padding: 14px 16px;
     text-decoration: none;
     font-size: 2rem;
+    
 }
 
 .content{
@@ -55,6 +56,7 @@
     justify-content: center;
     width: 100%;
     padding-bottom: 4rem;
+    flex-wrap: wrap;
 }
 
 .modalDialog {
@@ -175,6 +177,11 @@
     margin-bottom: 1rem;
     border: 1px solid #f6511d;
     padding: 1rem;
+
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .postItem h2{
@@ -254,10 +261,19 @@ h4 {
     outline: none;
 }
 
+.postItem .commentTime{
+    font-size: 0.6rem;
+    color: #606061;
+}
+
 @media only screen and (min-width: 992px) {
     .navbar div{
         float: none;
         width: auto;
+    }
+
+    .content{
+        width: 90vw;
     }
 
     .navbar{
@@ -270,6 +286,7 @@ h4 {
         display: flex;
         flex-direction: row-reverse;
         padding-bottom: 0;
+        margin-left: 72px;
     }
 
     .modalDialog > div {
