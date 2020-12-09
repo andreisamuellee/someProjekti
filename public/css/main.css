@@ -227,6 +227,45 @@ h4 {
     margin-bottom: 0.5rem;
 }
 
+.postItem .comment{
+    font-size: 1rem;
+}
+
+.postItem div{
+    margin: 1rem 0;
+    text-align: left;
+    display: none;
+}
+
+.showComments{
+    border: none;
+    background-color: #FFFFFF;
+    color: #606061;
+    margin: auto;
+    display: block;
+    padding: 0.5rem 0;
+}
+
+.showComments:hover{
+    color: #000000;
+    cursor: pointer;
+}
+
+.showComments:active{
+    border: none;
+    outline: none;
+}
+
+.showComments:focus{
+    border: none;
+    outline: none;
+}
+
+.postItem .commentTime{
+    font-size: 0.6rem;
+    color: #606061;
+}
+
 @media only screen and (min-width: 992px) {
     .navbar div{
         float: none;

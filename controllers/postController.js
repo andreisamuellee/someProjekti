@@ -124,17 +124,18 @@ const change_profile_photo = async (req, res) => {
 };
 
 const create_comment = async (req, res) => {
-  console.log('create_comment', req.body, req.file);
+  console.log('create_comment', req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({errors: errors.array()});
   }
 
   // object destructuring
-  const {teksti, postausID} = req.body;
-  const params = [teksti, postausID];
+  const {Kommentti, PostausID} = req.body;
+  console.log('Kommentti: ' + PostausID);
+  const params = [Kommentti, PostausID, req.user.Sahkoposti];
   const post = await postModel.addComment(params);
-  res.json({message: 'upload ok'});
+  res.json({message: 'Comment ok'});
 };
 
 const comment_delete = async (req, res) => {

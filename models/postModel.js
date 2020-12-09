@@ -49,12 +49,9 @@ const getOwnPosts = async (id) => {
 
 const getPost = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM Postaus WHERE PostausID = ?',
+    const [rows] = await promisePool.execute('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
+        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti WHERE Postaus.PostausID = ?;',
         [id]);
-    rows.push(await promisePool.execute('SELECT * FROM Kommentit WHERE KommenttiID = ?',
-        [id]));
-    rows.push(await promisePool.execute('SELECT * FROM Tykkays WHERE PostausID = ?',
-        [id]));
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -172,7 +169,7 @@ const deleteProfilePhoto = async (sahkoposti) => {
 const addComment = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO Kommentit (Teksti, Aikaleima, PostausID) VALUES (?,(SELECT CURRENT_TIMESTAMP),?)',
+        'INSERT INTO kommentit (teksti, aikaleima, postausID, sahkoposti) VALUES (?,NOW(),?,?)',
         params
     );
     console.log('rows', rows);
@@ -209,9 +206,13 @@ const getComment = async (id) => {
 
 const getPostComments = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM Kommentit WHERE PostausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM kommentit INNER JOIN kayttaja ON kommentit.sahkoposti = kayttaja.sahkoposti WHERE postausID = ?',
         [id]);
-    console.log('rows', rows);
+    console.log('commentRows', rows);
+    let i;
+    for(i = 0; i < rows.length; i++){
+      rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')
+    }
     return rows;
   } catch (e) {
     console.log('postausModel error', e.message);

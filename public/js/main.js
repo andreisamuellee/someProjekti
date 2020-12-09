@@ -13,7 +13,7 @@ const createPost = async (data) => {
 
   const loggedUser = await getLoggedUser();
   ul.innerHTML = '';
-  data.forEach((post) => {
+  for (const post of data) {
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + post.KuvaTiedosto;
     img.alt = post.Otsikko;
@@ -43,6 +43,38 @@ const createPost = async (data) => {
     p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
+
+    let commentDiv = document.createElement('div');
+    const comments = await getComments(post.PostausID);
+
+    comments.forEach((comment) => {
+      const p = document.createElement('p');
+      p.classList.add('comment');
+      p.innerHTML = '<b>' + comment.Kayttajatunnus + ': ' + '</b>' + comment.Teksti;
+      const pt = document.createElement('p');
+      pt.classList.add('commentTime');
+      pt.innerHTML = comment.Aikaleima;
+      commentDiv.appendChild(p);
+      commentDiv.appendChild(pt);
+    });
+
+    const showComments = document.createElement('button');
+    let commentCount = comments.length;
+    console.log('Commentcount: ' + commentCount);
+    if(commentCount === 1){
+      showComments.innerHTML = commentCount + ' Comment';
+    }else{
+      showComments.innerHTML = commentCount + ' Comments';
+    }
+    showComments.classList.add('showComments');
+    showComments.addEventListener('click', () => {
+      if (getComputedStyle(commentDiv, null).display === 'none' && commentCount !== 0) {
+        commentDiv.style.display = 'block';
+      } else {
+        commentDiv.style.display = 'none';
+      }
+    });
+
     //moment.js aikaleimoihin
     const likeButton = document.createElement('button');
 
@@ -104,6 +136,66 @@ const createPost = async (data) => {
       }
     });
 
+    const commentForm = document.createElement('form');
+    commentForm.setAttribute('enctype', 'multipart/form-data');
+    commentForm.classList.add('commentForm');
+
+    const commentInput = document.createElement('input');
+    commentInput.setAttribute('type', 'text');
+    commentInput.setAttribute('name', 'Kommentti');
+
+    const IDInput = document.createElement('input');
+    IDInput.setAttribute('type', 'hidden');
+    IDInput.setAttribute('name', 'PostausID');
+    IDInput.value = post.PostausID;
+
+    const commentButton = document.createElement('button');
+    commentButton.setAttribute('type', 'submit');
+    commentButton.innerHTML = 'Send';
+
+    commentForm.appendChild(commentInput);
+    commentForm.appendChild(IDInput);
+    commentForm.appendChild(commentButton);
+
+    commentForm.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      console.log('Kommentti ' + JSON.stringify(serializeJson(commentForm)));
+      const cfd = JSON.stringify(serializeJson(commentForm));
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: cfd,
+      };
+      const response = await fetch(url + '/post/comment', fetchOptions);
+      const json = await response.json();
+      console.log('add comment response', json);
+
+      if(commentInput.value !== ''){
+        const comments = await getComments(post.PostausID);
+        const index = comments.length -1;
+        const newComment = comments[index];
+        const p = document.createElement('p');
+        p.classList.add('comment');
+        p.innerHTML = '<b>' + newComment.Kayttajatunnus + ': ' + '</b>' + newComment.Teksti;
+        const pt = document.createElement('p');
+        pt.classList.add('commentTime');
+        pt.innerHTML = newComment.Aikaleima;
+        commentDiv.appendChild(p);
+        commentDiv.appendChild(pt);
+        commentCount++;
+        if(commentCount === 1){
+          showComments.innerHTML = commentCount + ' Comment';
+        }else{
+          showComments.innerHTML = commentCount + ' Comments';
+        }
+        commentDiv.style.display = 'block';
+        commentInput.value = '';
+      }
+    });
+
     const div = document.createElement('div');
     div.classList.add('postItem');
 
@@ -125,9 +217,15 @@ const createPost = async (data) => {
     } else {
       console.log('No match!');
     }
+
+    div.appendChild(showComments);
+    div.appendChild(commentDiv);
+    div.appendChild(commentForm);
     ul.appendChild(div);
-  });
-};
+  }
+
+  };
+
 
 close.addEventListener('click', (evt) => {
   evt.preventDefault();
@@ -215,11 +313,27 @@ const getLike = async (id) => {
   }
 };
 
+const getComments = async (id) => {
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/post/comment/' + id, options);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
 
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
+  console.log('PostForm ' + postForm);
   const fd = new FormData(postForm);
-  console.log(fd);
   const fetchOptions = {
     method: 'POST',
     headers: {
