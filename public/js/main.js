@@ -210,7 +210,9 @@ const createPost = async (data) => {
     div.appendChild(p0);
     div.appendChild(p1);
     div.appendChild(p2);
-    div.appendChild(likeButton);
+    if (sessionStorage.getItem('token') != null) {
+      div.appendChild(likeButton);
+    }
     if (post.Sahkoposti === loggedUser) {
       div.appendChild(modButton);
       div.appendChild(delButton);
@@ -240,7 +242,12 @@ const getPost = async () => {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/post', options);
+    let response = null;
+    if (sessionStorage.getItem('token') == null) {
+      response = await fetch(url + '/getposts', options);
+    } else {
+      response = await fetch(url + '/post', options);
+    }
     const data = await response.json();
     console.log(data);
     createPost(data);

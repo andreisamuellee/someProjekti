@@ -22,6 +22,7 @@ const login = (req, res) => {
       }
       // generate a signed son web token with the contents of user object and return it in the response
       const token = jwt.sign(user, 'group3');
+      delete user.Salasana;
       return res.json({user, token});
     });
 

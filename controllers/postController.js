@@ -24,6 +24,16 @@ const post_get_logged_user = async (req, res) => {
   res.json(user);
 };
 
+const post_own_get = async (req, res) => {
+  const posts = await postModel.getOwnPosts(req.user.Sahkoposti);
+  res.json(posts);
+};
+
+const get_name = async (req, res) => {
+  const user = await req.user.Kayttajatunnus;
+  res.json(user);
+};
+
 const create_post = async (req, res) => {
   console.log('create_post', req.body, req.file);
   const errors = validationResult(req);
@@ -40,6 +50,8 @@ const create_post = async (req, res) => {
   const image = await postModel.addPhoto(params2);
   res.json({message: 'upload ok'});
 };
+
+
 
 const post_update_put = async (req, res) => {
   console.log('post_update_put', req.body);
@@ -103,6 +115,14 @@ const change_photo = async (req, res) => {
   res.json({message: 'Photo change ok'});
 };
 
+const change_profile_photo = async (req, res) => {
+  const profilePhoto = await postModel.deleteProfilePhoto(req.body.Sahkoposti);
+  const params = [req.file.filename, req.body.Sahkoposti];
+  console.log(params);
+  const profileImage = await postModel.updateProfilePhoto(params);
+  res.json({message: 'Photo change ok'});
+};
+
 const create_comment = async (req, res) => {
   console.log('create_comment', req.body);
   const errors = validationResult(req);
@@ -138,6 +158,7 @@ const get_post_comments = async (req, res) => {
 
 module.exports = {
   post_list_get,
+  post_own_get,
   post_get,
   post_get_logged_user,
   create_post,
@@ -148,7 +169,9 @@ module.exports = {
   comment_delete,
   comment_get,
   get_post_comments,
+  get_name,
   change_photo,
+  change_profile_photo,
   like_post,
   like_get,
   like_delete,
