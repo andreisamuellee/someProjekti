@@ -49,7 +49,7 @@ const createPost = async (data) => {
     likeButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
       const liked = getLike(post.PostausID);
-      if (liked.Sahkoposti = req.user.Sahkoposti){
+      if (liked.Sahkoposti = user.Sahkoposti){
         likeButton.innerHTML = '<3Likes = ' + post["count(tykkays.postausID)"];
       }
       const fetchOptions = {
