@@ -34,12 +34,9 @@ const getPost = async (id) => {
 */
 const getPost = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM postaus WHERE postausID = ?',
+    const [rows] = await promisePool.execute('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
+        'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti WHERE Postaus.PostausID = ?;',
         [id]);
-    rows.push(await promisePool.execute('SELECT * FROM kommentit WHERE kommenttiID = ?',
-        [id]));
-    rows.push(await promisePool.execute('SELECT * FROM tykkays WHERE postausID = ?',
-        [id]));
     console.log('rows', rows);
     return rows;
   } catch (e) {

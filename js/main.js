@@ -151,7 +151,14 @@ const createPost = async (data) => {
       const response = await fetch(url + '/post/comment', fetchOptions);
       const json = await response.json();
       console.log('add comment response', json);
-      getPost();
+      const comments = await getComments(post.PostausID);
+      const index = comments.length -1;
+      const newComment = comments[index];
+      const p = document.createElement('p');
+      p.classList.add('comment');
+      p.innerHTML = '<b>' + newComment.Kayttajatunnus + ': ' + '</b>' + newComment.Teksti;
+      div.appendChild(p);
+      commentInput.value = '';
     });
 
     const li = document.createElement('li');
