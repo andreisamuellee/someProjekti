@@ -1,5 +1,4 @@
 'use strict';
-// postRoute
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -25,9 +24,13 @@ const injectFile = (req, res, next) => {
 
 router.get('/', postController.post_list_get);
 
+router.get('/own', postController.post_own_get);
+
 router.get('/user/:id', postController.post_get);
 
 router.get('/logged', postController.post_get_logged_user);
+
+
 
 //inside router post =  
 router.post('/', upload.single('image'), injectFile, postController.make_thumbnail, [
@@ -41,6 +44,10 @@ router.post('/', upload.single('image'), injectFile, postController.make_thumbna
 router.post('/photoChange', upload.single('KuvaTiedosto'), injectFile, postController.make_thumbnail, [
   body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.change_photo);
+
+router.post('/profilePhotoChange', upload.single('Profiilikuva'), injectFile, [
+  body('mimetype', 'ei ole kuva').contains('image'),
+], postController.change_profile_photo);
 
 router.put('/', [
   body('Otsikko', 'vaadittu kenttä').isLength({min: 1}),

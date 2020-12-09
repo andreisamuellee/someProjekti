@@ -45,13 +45,11 @@ const createPost = async (data) => {
     p2.innerHTML = post.Tiedot;
     //moment.js aikaleimoihin
     const likeButton = document.createElement('button');
-    likeButton.innerHTML = 'Likes = ' + post["count(tykkays.postausID)"];
+
+    setLikedState(post.PostausID, likeButton, post);
+
     likeButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
-      const liked = getLike(post.PostausID);
-      if (liked.Sahkoposti = user.Sahkoposti){
-        likeButton.innerHTML = '<3Likes = ' + post["count(tykkays.postausID)"];
-      }
       const fetchOptions = {
         method: 'POST',
         headers: {
@@ -118,7 +116,9 @@ const createPost = async (data) => {
     div.appendChild(p0);
     div.appendChild(p1);
     div.appendChild(p2);
-    div.appendChild(likeButton);
+    if (sessionStorage.getItem('token') != null) {
+      div.appendChild(likeButton);
+    }
     if (post.Sahkoposti === loggedUser) {
       div.appendChild(modButton);
       div.appendChild(delButton);
@@ -142,7 +142,12 @@ const getPost = async () => {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/post', options);
+    let response = null;
+    if (sessionStorage.getItem('token') == null) {
+      response = await fetch(url + '/getposts', options);
+    } else {
+      response = await fetch(url + '/post', options);
+    }
     const data = await response.json();
     console.log(data);
     createPost(data);
@@ -151,6 +156,15 @@ const getPost = async () => {
     console.log(e.message);
   }
 };
+
+const setLikedState = async (id, likeButton, post) => {
+  const liked = await getLike(id);
+  if (liked === undefined || liked.length == 0) {
+    likeButton.innerHTML = 'Likes = ' + post["COUNT(Tykkays.PostausID)"];
+  } else {
+    likeButton.innerHTML = '<3Likes = ' + post["COUNT(Tykkays.PostausID)"];
+  }
+}
 
 const Like = async (id) => {
   const fetchOptions = {

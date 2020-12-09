@@ -21,11 +21,43 @@
       <section class="content">
         
         <div class="userinfo">
-          <img src="./img/looginen varmuuskopio.PNG" alt="">
-          <h1 class="name">Here comes your name</h1>
-          <p id="bio">And here comes your bio</p>          
+          <div id="imageArea">
+            <img class="profilePic" src="" alt="Your profilepicture">
+          </div>
+          <div id="infoArea">
+            <h1 class="name"></h1>
+            <p id="bio"></p>
+          </div>
+          
+          
         </div>
+
+        <button id="Edit"> Edit bio or profilepicture </button>
+
+        <div id="editModal" class="modalDialog">
+          <div>
+              <a href="#close" title="Close" class="close">X</a>
+              <h2>Change your profile picture or bio</h2>
+              <form id="editForm">
+                <label for="bio">Bio:</label><br>
+                <input type="text" id="bio" name="bio"><br>
+                <input type="file"
+                      name="Profiilikuva"
+                      accept="image/*"
+                      placeholder="Choose file"><br><br>
+                <input type="hidden" name="Sahkoposti">
+                <button class="Edit" type="submit">Save changes</button>
+              </form>
+          </div>
+        </div>
+
+        <div class="posts">
+          <ul class="ownPostContent"></ul>
+
+        </div>
+          
       </section>
+      
     
       <nav class="navbar">
         <div><a class="navIcon" href="index.html"><i class="fas fa-home"></i></a></div>
