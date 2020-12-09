@@ -1,6 +1,6 @@
 'use strict';
 const ul = document.querySelector('.ownPostContent');
-const url = 'http://localhost:3000';
+const url = '.';
 const user = JSON.parse(sessionStorage.getItem('user'));
 document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
 
@@ -115,22 +115,51 @@ const createPost = (data) => {
 
  };
 
-  // const getLoggedUsername = async () => {
-  //   try {
-  //     const options = {
-  //       headers: {
-  //         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-  //       },
-  //     };
-  //     const response = await fetch(url + '/post/logged', options);
-  //     const data = await response.json();
-  //     console.log('Logged user: ' + data);
-  //     return data;
-  //   }
-  //   catch (e) {
-  //     console.log(e.message);
-  //   }
-  // };
+//NOT READY YET --------------->
+
+  const editButton = document.querySelector('#Edit');
+    editButton.addEventListener('click', () => {
+      location.href='#editModal';    
+    });
+
+  const saveForm = document.querySelector('#editForm');
+    saveForm.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      await changePhoto(saveForm);
+      const data = serializeJson(saveForm);
+      const fetchOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify(data),
+      };
+    
+      console.log(fetchOptions);
+      const response = await fetch(url + '/post', fetchOptions);
+      const json = await response.json();
+      console.log('edit response', json);
+      getPost();
+      location.href='#close';
+    });
+
+    const changeProfilePhoto = async (formdata) => {
+      const imgData = new FormData(formdata);
+      console.log('Kuvadata ' + imgData);
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: imgData,
+      };
+      const response = await fetch(url + '/post/profilePhotoChange', fetchOptions);
+      const json = await response.json();
+      console.log('add photoresponse', json);
+    };
+
+//<--------------- NOT READY YET 
 
 if (sessionStorage.getItem('token')) {
     getPost();

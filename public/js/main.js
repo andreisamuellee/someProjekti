@@ -44,11 +44,12 @@ const createPost = async (data) => {
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
 //moment.js aikaleimoihin
-    const likeButton = document.createElement('button');
-    likeButton.innerHTML = 'Like';
-    likeButton.addEventListener('click', () =>{
-      //a code which calls a put method of the postRoute
-    });
+
+      const likeButton = document.createElement('button');
+      likeButton.innerHTML = 'Like';
+      likeButton.addEventListener('click', () =>{
+        //a code which calls a put method of the postRoute
+      });
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
     const modButton = document.createElement('button');
@@ -98,7 +99,9 @@ const createPost = async (data) => {
     li.appendChild(p0);
     li.appendChild(p1);
     li.appendChild(p2);
-    li.appendChild(likeButton);
+    if (sessionStorage.getItem('token') != null) {
+      li.appendChild(likeButton);
+    };
     if(post.Sahkoposti === loggedUser){
       li.appendChild(modButton);
       li.appendChild(delButton);
@@ -122,7 +125,12 @@ const getPost = async () => {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/post', options);
+    let response = null;
+    if (sessionStorage.getItem('token') == null) {
+      response = await fetch(url + '/getposts', options);
+    } else {
+      response = await fetch(url + '/post', options);
+    }
     const data = await response.json();
     console.log(data);
     createPost(data);

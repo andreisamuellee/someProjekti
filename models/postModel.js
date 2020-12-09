@@ -8,7 +8,6 @@ const getAllPosts = async () => {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto ' +
         'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti;');
-    console.log('rows11', moment(rows[1].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
       rows[i].Aikaleima = moment(rows[i].Aikaleima).format('MMMM Do YYYY')
@@ -90,6 +89,20 @@ const updatePost = async (params) => {
   }
 }
 
+const updateProfilePhoto = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE kayttaja SET Profiilikuva = ? WHERE Sahkoposti = ?',
+        params
+    );
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
+
 const deletePost = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM postaus WHERE postausID = ?',
@@ -134,6 +147,18 @@ const deletePhoto = async (id) => {
   try {
     const [rows] = await promisePool.execute('DELETE FROM kuva WHERE postausID = ?',
         [id]);
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+}
+
+const deleteProfilePhoto = async (sahkoposti) => {
+  try {
+    const [rows] = await promisePool.execute('DELETE FROM Profiilikuva WHERE Sahkoposti = ?',
+        sahkoposti);
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -302,5 +327,7 @@ module.exports = {
   deletePhoto,
   getName,
   updatePhoto,
-  deletePhoto
+  deletePhoto,
+  updateProfilePhoto,
+  deleteProfilePhoto,
 };

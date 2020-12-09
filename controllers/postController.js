@@ -96,6 +96,14 @@ const change_photo = async (req, res) => {
   res.json({message: 'Photo change ok'});
 };
 
+const change_profile_photo = async (req, res) => {
+  const profilePhoto = await postModel.deleteProfilePhoto(req.body.Sahkoposti);
+  const params = [req.file.filename, req.body.Sahkoposti];
+  console.log(params);
+  const profileImage = await postModel.updateProfilePhoto(params);
+  res.json({message: 'Photo change ok'});
+};
+
 const create_comment = async (req, res) => {
   console.log('create_comment', req.body, req.file);
   const errors = validationResult(req);
@@ -143,6 +151,7 @@ module.exports = {
   get_post_comments,
   get_name,
   change_photo,
+  change_profile_photo,
 
 
 };

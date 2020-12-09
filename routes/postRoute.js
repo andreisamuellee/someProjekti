@@ -45,6 +45,10 @@ router.post('/photoChange', upload.single('KuvaTiedosto'), injectFile, postContr
   body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.change_photo);
 
+router.post('/profilePhotoChange', upload.single('Profiilikuva'), injectFile, [
+  body('mimetype', 'ei ole kuva').contains('image'),
+], postController.change_profile_photo);
+
 router.put('/', [
   body('Otsikko', 'vaadittu kenttä').isLength({min: 1}),
   body('Katuosoite', 'vaadittu kenttä').isLength({min: 1}),
