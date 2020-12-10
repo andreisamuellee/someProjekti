@@ -12,6 +12,11 @@ const post_list_get = async (req, res) => {
   res.json(posts);
 };
 
+const post_list_get_likes_filter = async (req, res) => {
+  const posts = await postModel.getLikesFilter();
+  res.json(posts);
+};
+
 const post_get = async (req, res) => {
   const id = req.params.id;
   const post = await postModel.getPost(id);
@@ -158,6 +163,7 @@ const get_post_comments = async (req, res) => {
 
 module.exports = {
   post_list_get,
+  post_list_get_likes_filter,
   post_own_get,
   post_get,
   post_get_logged_user,
