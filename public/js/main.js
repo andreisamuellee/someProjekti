@@ -14,7 +14,7 @@ const likesFilterButton = document.getElementById('likesFilter');
 let filter = 0;
 
 const createPost = async (data) => {
-  if(filter === 0){
+  if (filter === 0) {
     data.reverse();
   }
   const loggedUser = await getLoggedUser();
@@ -36,7 +36,7 @@ const createPost = async (data) => {
       catch (e) {
       }*/
     });
-    console.log(post["count(tykkays.postausID)"]);
+    console.log(post['count(tykkays.postausID)']);
     const figure = document.createElement('figure').appendChild(img);
 
     const h4 = document.createElement('h4');
@@ -46,7 +46,8 @@ const createPost = async (data) => {
     const p0 = document.createElement('h4');
     p0.innerHTML = post.Aikaleima;
     const p1 = document.createElement('h4');
-    p1.innerHTML = '<i class="fas fa-thumbtack"></i> ' + post.Katuosoite + ' ' + post.Paikkakunta;
+    p1.innerHTML = '<i class="fas fa-thumbtack"></i> ' + post.Katuosoite + ' ' +
+        post.Paikkakunta;
     const p2 = document.createElement('p');
     p2.className = 'postInfo';
     p2.innerHTML = post.Tiedot;
@@ -58,14 +59,15 @@ const createPost = async (data) => {
     const showComments = document.createElement('button');
 
     console.log('Commentcount: ' + commentCount);
-    if(commentCount === 1){
+    if (commentCount === 1) {
       showComments.innerHTML = commentCount + ' Comment';
-    }else{
+    } else {
       showComments.innerHTML = commentCount + ' Comments';
     }
     showComments.classList.add('showComments');
     showComments.addEventListener('click', () => {
-      if (getComputedStyle(commentDiv, null).display === 'none' && commentCount !== 0) {
+      if (getComputedStyle(commentDiv, null).display === 'none' &&
+          commentCount !== 0) {
         commentDiv.style.display = 'block';
       } else {
         commentDiv.style.display = 'none';
@@ -73,20 +75,25 @@ const createPost = async (data) => {
     });
 
     for (const comment of comments) {
-      await commentDelete(commentDiv, comment.Kayttajatunnus, comment.Teksti, comment.Aikaleima, comment.KommenttiID, loggedUser, comment.Sahkoposti, showComments, post.PostausID);
+      await commentDelete(commentDiv, comment.Kayttajatunnus, comment.Teksti,
+          comment.Aikaleima, comment.KommenttiID, loggedUser,
+          comment.Sahkoposti, showComments, post.PostausID);
     }
 
     //moment.js aikaleimoihin
     const likeButton = document.createElement('span');
-    likeButton.className = "heart";
+    likeButton.className = 'heart';
     const likeValue = document.createElement('p');
-    likeValue.className = "likeVal";
+    likeValue.className = 'likeVal';
 
-    setLikedState(post.PostausID, likeButton, post["COUNT(Tykkays.PostausID)"] ,likeValue);
+    setLikedState(post.PostausID, likeButton, post['COUNT(Tykkays.PostausID)'],
+        likeValue);
     let liked = false;
+    let liked2 = false;
     likeButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
-      let likes = post["COUNT(Tykkays.PostausID)"];
+      let likes = post['COUNT(Tykkays.PostausID)'];
+      console.log('TYKKÄÄYSS ' + likes);
       const fetchOptions = {
         method: 'POST',
         headers: {
@@ -94,28 +101,30 @@ const createPost = async (data) => {
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
       };
-      const response = await fetch(url + '/post/like/' + post.PostausID, fetchOptions);
+      const response = await fetch(url + '/post/like/' + post.PostausID,
+          fetchOptions);
       const json = await response.json();
       console.log('like response', json);
       if (json.error) {
         deleteLike(post.PostausID);
-        if(likes !== 0){
-          likes--;
-          liked = true;
+        if (likes !== 0) {
+          if (!liked2) {
+            likes--;
+            liked = true;
+          }
         }
-      }else{
-        if (!liked){
+      } else {
+        if (!liked) {
           likes++;
+          liked2 = true;
         }
       }
-      setLikedState(post.PostausID, likeButton, likes ,likeValue);
+      setLikedState(post.PostausID, likeButton, likes, likeValue);
     });
-
-
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
     const modButton = document.createElement('span');
-    modButton.className = "editButton";
+    modButton.className = 'editButton';
     modButton.innerHTML = '<i class="fas fa-edit"></i>';
     modButton.addEventListener('click', () => {
       location.href = '#modModal';
@@ -131,11 +140,11 @@ const createPost = async (data) => {
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
     const delButton = document.createElement('span');
-    delButton.className = "deleteButton";
+    delButton.className = 'deleteButton';
     delButton.innerHTML = '<i class="fa fa-trash-alt"></i>';
     delButton.addEventListener('click', async () => {
       const verification = confirm('Are you sure?');
-      if(verification) {
+      if (verification) {
         const fetchOptions = {
           method: 'DELETE',
           headers: {
@@ -159,7 +168,7 @@ const createPost = async (data) => {
     commentForm.classList.add('commentForm');
 
     const commentInput = document.createElement('input');
-    commentInput.className = "commentInput";
+    commentInput.className = 'commentInput';
     commentInput.setAttribute('placeholder', 'Lisää kommentti...');
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('name', 'Kommentti');
@@ -194,14 +203,17 @@ const createPost = async (data) => {
       const json = await response.json();
       console.log('add comment response', json);
 
-      if(commentInput.value !== ''){
+      if (commentInput.value !== '') {
         const comments = await getComments(post.PostausID);
-        const index = comments.length -1;
+        const index = comments.length - 1;
         const newComment = comments[index];
-        await commentDelete(commentDiv, newComment.Kayttajatunnus, newComment.Teksti, newComment.Aikaleima, newComment.KommenttiID, loggedUser, newComment.Sahkoposti, showComments, post.PostausID);
-        if(comments.length === 1){
+        console.log('Uusi kommentti: ' + newComment.Teksti);
+        await commentDelete(commentDiv, newComment.Kayttajatunnus,
+            newComment.Teksti, newComment.Aikaleima, newComment.KommenttiID,
+            loggedUser, newComment.Sahkoposti, showComments, post.PostausID);
+        if (comments.length === 1) {
           showComments.innerHTML = comments.length + ' Comment';
-        }else{
+        } else {
           showComments.innerHTML = comments.length + ' Comments';
         }
         commentDiv.style.display = 'block';
@@ -215,13 +227,11 @@ const createPost = async (data) => {
     console.log('Log ' + loggedUser);
     console.log('Post-sposti ' + post.Sahkoposti);
 
-    
     div.appendChild(h2);
     div.appendChild(h4);
     div.appendChild(p1);
     div.appendChild(figure);
-    
-    
+
     div.appendChild(p2);
     if (sessionStorage.getItem('token') != null) {
       div.appendChild(likeButton);
@@ -241,15 +251,16 @@ const createPost = async (data) => {
     ul.appendChild(div);
   }
 
-  };
-
+};
 
 close.addEventListener('click', (evt) => {
   evt.preventDefault();
   imageModal.classList.toggle('hide');
 });
 
-const commentDelete = async (commentDiv, user, text, timestamp, id, loggedUser, email, showComments, postausID) =>{
+const commentDelete = async (
+    commentDiv, user, text, timestamp, id, loggedUser, email, showComments,
+    postausID) => {
   const p = document.createElement('p');
   p.classList.add('comment');
   const comDel = document.createElement('button');
@@ -260,7 +271,7 @@ const commentDelete = async (commentDiv, user, text, timestamp, id, loggedUser, 
   pt.innerHTML = timestamp;
   commentDiv.appendChild(p);
   commentDiv.appendChild(pt);
-  if(loggedUser === email) {
+  if (loggedUser === email) {
     pt.appendChild(comDel);
     comDel.addEventListener('click', async () => {
       const fetchOptions = {
@@ -278,9 +289,9 @@ const commentDelete = async (commentDiv, user, text, timestamp, id, loggedUser, 
         comDel.remove();
         const comments = await getComments(postausID);
         console.log('COUNT: ' + comments.length);
-        if(comments.length === 1){
+        if (comments.length === 1) {
           showComments.innerHTML = comments.length + ' Comment';
-        }else{
+        } else {
           showComments.innerHTML = comments.length + ' Comments';
         }
       } catch (e) {
@@ -307,8 +318,7 @@ const getPost = async () => {
     const data = await response.json();
     console.log(data);
     createPost(data);
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message);
   }
 };
@@ -328,16 +338,15 @@ const getLikesFilter = async () => {
       response = await fetch(url + '/post/likesFilter', options);
     }
     const data = await response.json();
-    console.log(data);
     createPost(data);
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message);
   }
 };
 
 const setLikedState = async (id, likeButton, post, likeValue) => {
   const liked = await getLike(id);
+  console.log('Liket: ' + post);
   if (liked === undefined || liked.length == 0) {
     likeButton.innerHTML = '<i class="fas fa-heart notliked"></i>';
     likeValue.innerHTML = post;
@@ -345,7 +354,7 @@ const setLikedState = async (id, likeButton, post, likeValue) => {
     likeButton.innerHTML = '<i class="fas fa-heart liked"></i>';
     likeValue.innerHTML = post;
   }
-}
+};
 
 const Like = async (id) => {
   const fetchOptions = {
@@ -372,8 +381,7 @@ const getLoggedUser = async () => {
     const data = await response.json();
     console.log('Logged user: ' + data);
     return data;
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message);
   }
 };
@@ -390,8 +398,7 @@ const getLike = async (id) => {
     const data = await response.json();
     console.log('get like: ' + data);
     return data;
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message);
   }
 };
@@ -407,8 +414,7 @@ const getComments = async (id) => {
     const data = await response.json();
     console.log(data);
     return data;
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message);
   }
 };
@@ -498,8 +504,7 @@ const deleteLike = async (id) => {
     const response = await fetch(url + '/post/like/' + id, fetchOptions);
     const json = await response.json();
     console.log('delete response', json);
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e.message());
   }
 };

@@ -65,6 +65,11 @@ router.put('/', [
   //body('mimetype', 'ei ole kuva').contains('image'),
 ], postController.post_update_put);
 
+router.put('/bio', [
+  body('Bio', 'vaadittu kenttä').isLength({min: 1}),
+  body('Sahkoposti', 'vaadittu kenttä').isLength({min: 1}),
+], postController.update_bio);
+
 router.post('/like/:id', postController.like_post);
 
 router.get('/like/:id', postController.like_get);

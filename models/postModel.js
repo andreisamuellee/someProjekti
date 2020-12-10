@@ -26,7 +26,7 @@ const getLikesFilter = async () => {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto, COUNT(Tykkays.PostausID) ' +
         'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti '+
-        'LEFT JOIN Tykkays ON Postaus.PostausID = Tykkays.PostausID GROUP BY Postaus.PostausID ORDER BY COUNT(tykkays.PostausID);');
+        'LEFT JOIN Tykkays ON Postaus.PostausID = Tykkays.PostausID GROUP BY Postaus.PostausID ORDER BY COUNT(Tykkays.PostausID);');
     console.log('rows11', moment(rows[0].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
@@ -108,7 +108,7 @@ const updatePost = async (params) => {
 
 const updateProfilePhoto = async (params) => {
   try {
-    const [rows] = await promisePool.execute(
+    const [rows] = await promisePool.query(
         'UPDATE Kayttaja SET Profiilikuva = ? WHERE Sahkoposti = ?',
         params
     );
@@ -174,7 +174,7 @@ const deletePhoto = async (id) => {
 
 const deleteProfilePhoto = async (sahkoposti) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM Profiilikuva WHERE Sahkoposti = ?',
+    const [rows] = await promisePool.query('DELETE FROM Profiilikuva WHERE Sahkoposti = ?',
         sahkoposti);
     console.log('rows', rows);
     return rows;
@@ -224,7 +224,7 @@ const getComment = async (id) => {
 
 const getPostComments = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM Kommentit INNER JOIN Kayttaja ON Kommentit.Sahkoposti = Kayttaja.Sahkoposti WHERE PostausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kommentit INNER JOIN Kayttaja ON Kommentit.Sahkoposti = Kayttaja.Sahkoposti WHERE PostausID = ? ORDER BY KommenttiID',
         [id]);
     console.log('commentRows', rows);
     let i;
@@ -326,6 +326,20 @@ const getName = async (Kayttajanimi) => {
   }
 };
 
+const updateBio = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE Kayttaja SET Bio = ? WHERE Sahkoposti = ?',
+        params
+    );
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+};
+
 //INSERT INTO tykkays (sahkoposti, postausID) VALUES ('topi@g.com', 1);
 
 module.exports = {
@@ -352,4 +366,5 @@ module.exports = {
   updatePhoto,
   updateProfilePhoto,
   deleteProfilePhoto,
+  updateBio,
 };
