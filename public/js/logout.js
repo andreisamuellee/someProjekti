@@ -4,7 +4,7 @@ const logOutDiv = document.querySelector('#logOutDiv');
 logOut.addEventListener('click', async (evt) => {
   evt.preventDefault();
   console.log('Kliki toimii');
-  const varmistus = confirm('Oletko varma?');
+  const varmistus = confirm('Are you sure?');
   if (varmistus) {
     try {
       const options = {

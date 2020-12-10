@@ -224,7 +224,7 @@ const getComment = async (id) => {
 
 const getPostComments = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM Kommentit INNER JOIN Kayttaja ON Kommentit.Sahkoposti = Kayttaja.Sahkoposti WHERE PostausID = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kommentit INNER JOIN Kayttaja ON Kommentit.Sahkoposti = Kayttaja.Sahkoposti WHERE PostausID = ? ORDER BY KommenttiID',
         [id]);
     console.log('commentRows', rows);
     let i;
