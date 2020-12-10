@@ -433,7 +433,7 @@ const deleteLike = async (id) => {
   catch (e) {
     console.log(e.message());
   }
-}
+};
 
 
 openFormBtn.addEventListener('click', () => {
