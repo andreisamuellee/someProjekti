@@ -47,8 +47,8 @@ html {
 }
 
 .mapboxgl-popup-close-button{
-  right: 7px;
-  top: 2px;
+  right: 5px;
+  padding:10px;
 }
 
 .mapboxgl-ctrl-directions{
@@ -69,8 +69,8 @@ html {
   -webkit-background-clip: text;
      -moz-background-clip: text;
           background-clip: text;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 8px;
 }
 
 #srcIcon {
