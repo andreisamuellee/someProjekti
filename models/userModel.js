@@ -5,7 +5,7 @@ const promisePool = pool.promise();
 const getAllUsers = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT * FROM kayttaja');
+    const [rows] = await promisePool.query('SELECT * FROM Kayttaja');
     console.log('rows', rows);
     return rows;
   } catch (e) {
@@ -16,7 +16,7 @@ const getAllUsers = async () => {
 
 const getUser = async (id) => {
   try {
-    const [rows] = await promisePool.execute('SELECT * FROM kayttaja WHERE Sahkoposti = ?',
+    const [rows] = await promisePool.execute('SELECT * FROM Kayttaja WHERE Sahkoposti = ?',
         [id]);
     console.log('rows', rows);
     return rows;
@@ -29,7 +29,7 @@ const getUser = async (id) => {
 const addUser = async (params) => {
   try {
     const [rows] = await promisePool.execute(
-        'INSERT INTO kayttaja (sahkoposti, kayttajatunnus, salasana) VALUES (?,?,?)',
+        'INSERT INTO Kayttaja (Sahkoposti, Kayttajatunnus, Salasana) VALUES (?,?,?)',
         params
     );
     console.log('rows', rows);
@@ -44,7 +44,7 @@ const getUserLogin = async (params) => {
   try {
     console.log('getUserLogin', params);
     const [rows] = await promisePool.execute(
-        'SELECT * FROM kayttaja WHERE sahkoposti = ?;',
+        'SELECT * FROM Kayttaja WHERE Sahkoposti = ?;',
         params);
     return rows;
   } catch (e) {
