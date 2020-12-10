@@ -17,7 +17,7 @@ logOut.addEventListener('click', async (evt) => {
       console.log(json);
       // remove token
       sessionStorage.removeItem('token');
-      location.href = 'login.html';
+      location.href = 'index.html';
     } catch (e) {
       console.log(e.message);
     }
