@@ -455,6 +455,7 @@ h4:last-child {
 .postItem .commentTime {
   font-size: 0.6rem;
   color: #606061;
+  margin-bottom: 0.4rem;
 }
 
 .postItem div p button {
