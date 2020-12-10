@@ -3,22 +3,24 @@ const ul = document.querySelector('.ownPostContent');
 const url = '.';
 const user = JSON.parse(sessionStorage.getItem('user'));
 document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
+const email = document.getElementById('emailInput');
 
-if (!document.querySelector('#bio') == null) {
+if (user.Bio !== null) {
   document.querySelector('#bio').innerHTML=user.Bio;
 } else {
   document.querySelector('#bio').innerHTML="My name is " + user.Kayttajatunnus + " and I use Skater app";
 }
 
-if (!document.querySelector('.profilePic') == null) {
-  document.querySelector('.profilePic').src=user.Profiilikuva;
+if (user.Profiilikuva !== null) {
+  document.querySelector('.profilePic').src='/' + user.Profiilikuva;
 } else {
   document.querySelector('.profilePic').src="../img/Profile Picture.PNG";
 }
 
 
 const createPost = (data) => {
-
+    email.value = data[0].Sahkoposti;
+    console.log('Eemaili: ' + email.value);
     ul.innerHTML = '';
     //const post = JSON.parse(post);
     //console.log(post);
@@ -125,7 +127,7 @@ const createPost = (data) => {
   const saveForm = document.querySelector('#editForm');
     saveForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
-      await changePhoto(saveForm);
+      await changeProfilePhoto(saveForm);
       const data = serializeJson(saveForm);
       const fetchOptions = {
         method: 'PUT',
@@ -137,28 +139,27 @@ const createPost = (data) => {
       };
     
       console.log(fetchOptions);
-      const response = await fetch(url + '/post', fetchOptions);
+      const response = await fetch(url + '/post/bio', fetchOptions);
       const json = await response.json();
       console.log('edit response', json);
       getPost();
       location.href='#close';
     });
 
-    const changeProfilePhoto = async (formdata) => {
-      const imgData = new FormData(formdata);
-      console.log('Kuvadata ' + imgData);
-      const fetchOptions = {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-        body: imgData,
-      };
-      const response = await fetch(url + '/post/profilePhotoChange', fetchOptions);
-      const json = await response.json();
-      console.log('add photoresponse', json);
-    };
-
+const changeProfilePhoto = async (formdata) => {
+  const imgData = new FormData(formdata);
+  console.log('Kuvadata ' + imgData);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: imgData,
+  };
+  const response = await fetch(url + '/post/profilePhotoChange', fetchOptions);
+  const json = await response.json();
+  console.log('add photoresponse', json);
+};
 //<--------------- NOT READY YET 
 
 if (sessionStorage.getItem('token')) {

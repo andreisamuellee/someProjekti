@@ -121,6 +121,7 @@ const change_photo = async (req, res) => {
 };
 
 const change_profile_photo = async (req, res) => {
+  console.log('Terve');
   const profilePhoto = await postModel.deleteProfilePhoto(req.body.Sahkoposti);
   const params = [req.file.filename, req.body.Sahkoposti];
   console.log(params);
@@ -161,6 +162,13 @@ const get_post_comments = async (req, res) => {
   res.json(comments);
 };
 
+const update_bio = async (req, res) => {
+  const params = [req.body.Bio, req.body.Sahkoposti];
+  console.log(params);
+  const update = await postModel.updateBio(params);
+  res.json(update);
+};
+
 module.exports = {
   post_list_get,
   post_list_get_likes_filter,
@@ -181,6 +189,7 @@ module.exports = {
   like_post,
   like_get,
   like_delete,
+  update_bio,
 };
 
 

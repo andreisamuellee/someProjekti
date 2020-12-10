@@ -38,14 +38,14 @@
           <div>
               <a href="#close" title="Close" class="close">X</a>
               <h2>Change your profile picture or bio</h2>
-              <form id="editForm">
-                <label for="bio">Bio:</label><br>
-                <input type="text" id="bio" name="bio"><br>
+              <form id="editForm" enctype="multipart/form-data">
+                <label for="Bio">Bio:</label><br>
+                <input type="text" id="bioForm" name="Bio"><br>
                 <input type="file"
                       name="Profiilikuva"
                       accept="image/*"
                       placeholder="Choose file"><br><br>
-                <input type="hidden" name="Sahkoposti">
+                <input id="emailInput" type="hidden" name="Sahkoposti">
                 <button class="Edit" type="submit">Save changes</button>
               </form>
           </div>
@@ -68,6 +68,7 @@
       </nav>
     
     </main>
+    <script src="./js/serialize.js"></script>
     <script src="./js/profile.js"></script>
     <script src="./js/logout.js"></script>
   </body>

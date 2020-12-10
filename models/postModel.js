@@ -108,7 +108,7 @@ const updatePost = async (params) => {
 
 const updateProfilePhoto = async (params) => {
   try {
-    const [rows] = await promisePool.execute(
+    const [rows] = await promisePool.query(
         'UPDATE Kayttaja SET Profiilikuva = ? WHERE Sahkoposti = ?',
         params
     );
@@ -174,7 +174,7 @@ const deletePhoto = async (id) => {
 
 const deleteProfilePhoto = async (sahkoposti) => {
   try {
-    const [rows] = await promisePool.execute('DELETE FROM Profiilikuva WHERE Sahkoposti = ?',
+    const [rows] = await promisePool.query('DELETE FROM Profiilikuva WHERE Sahkoposti = ?',
         sahkoposti);
     console.log('rows', rows);
     return rows;
@@ -326,6 +326,20 @@ const getName = async (Kayttajanimi) => {
   }
 };
 
+const updateBio = async (params) => {
+  try {
+    const [rows] = await promisePool.execute(
+        'UPDATE Kayttaja SET Bio = ? WHERE Sahkoposti = ?',
+        params
+    );
+    console.log('rows', rows);
+    return rows;
+  } catch (e) {
+    console.log('postausModel error', e.message);
+    return { error: 'DB Error' };
+  }
+};
+
 //INSERT INTO tykkays (sahkoposti, postausID) VALUES ('topi@g.com', 1);
 
 module.exports = {
@@ -352,4 +366,5 @@ module.exports = {
   updatePhoto,
   updateProfilePhoto,
   deleteProfilePhoto,
+  updateBio,
 };
