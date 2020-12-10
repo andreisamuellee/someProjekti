@@ -26,7 +26,7 @@ const getLikesFilter = async () => {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
     const [rows] = await promisePool.query('SELECT Postaus.PostausID, Kayttaja.Kayttajatunnus, Otsikko, Katuosoite, Aikaleima, Tiedot, Paikkakunta, Postaus.Sahkoposti, KuvaTiedosto, COUNT(Tykkays.PostausID) ' +
         'FROM Postaus INNER JOIN Kuva ON Postaus.PostausID = Kuva.PostausID INNER JOIN Kayttaja ON Postaus.Sahkoposti = Kayttaja.Sahkoposti '+
-        'LEFT JOIN Tykkays ON Postaus.PostausID = Tykkays.PostausID GROUP BY Postaus.PostausID ORDER BY COUNT(tykkays.PostausID) DESC;');
+        'LEFT JOIN Tykkays ON Postaus.PostausID = Tykkays.PostausID GROUP BY Postaus.PostausID ORDER BY COUNT(tykkays.PostausID);');
     console.log('rows11', moment(rows[0].Aikaleima).format('MMMM Do YYYY, h:mm'));
     let i;
     for(i = 0; i < rows.length; i++){
@@ -254,11 +254,7 @@ const addLike = async (params) => {
 
 const getPostLike = async (params) => {
   try {
-<<<<<<< HEAD
     const [rows] = await promisePool.execute('SELECT Sahkoposti FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
-=======
-    const [rows] = await promisePool.execute('SELECT * FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
->>>>>>> origin/main
         params);
     console.log('getPostLike ROWS', rows);
     return rows;
