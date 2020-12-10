@@ -325,6 +325,29 @@ h4:last-child {
   color: #606061;
 }
 
+.postItem div p button{
+    margin-left: 0.5rem;
+    border: none;
+    background-color: #FFFFFF;
+    color: #606061;
+    font-size: 0.6rem;
+}
+
+.postItem div p button:hover{
+    color: #000000;
+    cursor: pointer;
+}
+
+.postItem div p button:active{
+    border: none;
+    outline: none;
+}
+
+.postItem div p button:focus{
+    border: none;
+    outline: none;
+}
+
 @media only screen and (min-width: 992px) {
   .navbar div {
     float: none;

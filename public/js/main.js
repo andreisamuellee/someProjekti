@@ -46,20 +46,10 @@ const createPost = async (data) => {
 
     let commentDiv = document.createElement('div');
     const comments = await getComments(post.PostausID);
-
-    comments.forEach((comment) => {
-      const p = document.createElement('p');
-      p.classList.add('comment');
-      p.innerHTML = '<b>' + comment.Kayttajatunnus + ': ' + '</b>' + comment.Teksti;
-      const pt = document.createElement('p');
-      pt.classList.add('commentTime');
-      pt.innerHTML = comment.Aikaleima;
-      commentDiv.appendChild(p);
-      commentDiv.appendChild(pt);
-    });
+    const commentCount = comments.length;
 
     const showComments = document.createElement('button');
-    let commentCount = comments.length;
+
     console.log('Commentcount: ' + commentCount);
     if(commentCount === 1){
       showComments.innerHTML = commentCount + ' Comment';
@@ -74,6 +64,10 @@ const createPost = async (data) => {
         commentDiv.style.display = 'none';
       }
     });
+
+    for (const comment of comments) {
+      await commentDelete(commentDiv, comment.Kayttajatunnus, comment.Teksti, comment.Aikaleima, comment.KommenttiID, loggedUser, comment.Sahkoposti, showComments, post.PostausID);
+    }
 
     //moment.js aikaleimoihin
     const likeButton = document.createElement('span');
@@ -122,20 +116,23 @@ const createPost = async (data) => {
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Delete';
     delButton.addEventListener('click', async () => {
-      const fetchOptions = {
-        method: 'DELETE',
-        headers: {
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-      };
-      try {
-        const response = await fetch(url + '/post/user/' + post.PostausID, fetchOptions);
-        const json = await response.json();
-        console.log('delete response', json);
-        getPost();
-      }
-      catch (e) {
-        console.log(e.message());
+      const verification = confirm('Are you sure?');
+      if(verification) {
+        const fetchOptions = {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          },
+        };
+        try {
+          const response = await fetch(url + '/post/user/' + post.PostausID,
+              fetchOptions);
+          const json = await response.json();
+          console.log('delete response', json);
+          getPost();
+        } catch (e) {
+          console.log(e.message());
+        }
       }
     });
 
@@ -180,19 +177,11 @@ const createPost = async (data) => {
         const comments = await getComments(post.PostausID);
         const index = comments.length -1;
         const newComment = comments[index];
-        const p = document.createElement('p');
-        p.classList.add('comment');
-        p.innerHTML = '<b>' + newComment.Kayttajatunnus + ': ' + '</b>' + newComment.Teksti;
-        const pt = document.createElement('p');
-        pt.classList.add('commentTime');
-        pt.innerHTML = newComment.Aikaleima;
-        commentDiv.appendChild(p);
-        commentDiv.appendChild(pt);
-        commentCount++;
-        if(commentCount === 1){
-          showComments.innerHTML = commentCount + ' Comment';
+        await commentDelete(commentDiv, newComment.Kayttajatunnus, newComment.Teksti, newComment.Aikaleima, newComment.KommenttiID, loggedUser, newComment.Sahkoposti, showComments, post.PostausID);
+        if(comments.length === 1){
+          showComments.innerHTML = comments.length + ' Comment';
         }else{
-          showComments.innerHTML = commentCount + ' Comments';
+          showComments.innerHTML = comments.length + ' Comments';
         }
         commentDiv.style.display = 'block';
         commentInput.value = '';
@@ -238,6 +227,56 @@ close.addEventListener('click', (evt) => {
   evt.preventDefault();
   imageModal.classList.toggle('hide');
 });
+
+const commentDelete = async (commentDiv, user, text, timestamp, id, loggedUser, email, showComments, postausID) =>{
+  const p = document.createElement('p');
+  p.classList.add('comment');
+  const comDel = document.createElement('button');
+  comDel.innerHTML = 'Delete';
+  p.innerHTML = '<b>' + user + ': ' + '</b>' + text;
+  const pt = document.createElement('p');
+  pt.classList.add('commentTime');
+  pt.innerHTML = timestamp;
+  commentDiv.appendChild(p);
+  commentDiv.appendChild(pt);
+  if(loggedUser === email) {
+    pt.appendChild(comDel);
+    comDel.addEventListener('click', async () => {
+      const fetchOptions = {
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      };
+      try {
+        const response = await fetch(url + '/post/comment/' + id, fetchOptions);
+        const json = await response.json();
+        console.log('commentDelete response', json);
+        p.remove();
+        pt.remove();
+        comDel.remove();
+        const comments = await getComments(postausID);
+        console.log('COUNT: ' + comments.length);
+        if(comments.length === 1){
+          showComments.innerHTML = comments.length + ' Comment';
+        }else{
+          showComments.innerHTML = comments.length + ' Comments';
+        }
+      } catch (e) {
+        console.log(e.message());
+      }
+    });
+  }
+};
+
+const getCommentCount = (mode) => {
+  if(mode === 1){
+    commentCount--;
+  }else {
+    commentCount++;
+  }
+  return commentCount;
+};
 
 const getPost = async () => {
   console.log('getPost token ', sessionStorage.getItem('token'));
@@ -354,6 +393,7 @@ postForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('add response', json);
   getPost();
+  postForm.reset();
   location.href = '#close';
 });
 

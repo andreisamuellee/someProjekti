@@ -71,5 +71,7 @@ router.delete('/user/:id', postController.post_delete);
 
 router.delete('/like/:id', postController.like_delete);
 
+router.delete('/comment/:id', postController.comment_delete);
+
 
 module.exports = router;

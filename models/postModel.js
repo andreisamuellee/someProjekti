@@ -236,7 +236,11 @@ const addLike = async (params) => {
 
 const getPostLike = async (params) => {
   try {
+<<<<<<< HEAD
     const [rows] = await promisePool.execute('SELECT Sahkoposti FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
+=======
+    const [rows] = await promisePool.execute('SELECT * FROM Tykkays WHERE PostausID = ? AND Sahkoposti = ?',
+>>>>>>> origin/main
         params);
     console.log('getPostLike ROWS', rows);
     return rows;
@@ -331,7 +335,6 @@ module.exports = {
   deletePhoto,
   getName,
   updatePhoto,
-  deletePhoto,
   updateProfilePhoto,
   deleteProfilePhoto,
 };
