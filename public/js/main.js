@@ -37,10 +37,10 @@ const createPost = async (data) => {
     h4.innerHTML = post.Kayttajatunnus;
     const h2 = document.createElement('h2');
     h2.innerHTML = post.Otsikko;
-    const p0 = document.createElement('p');
+    const p0 = document.createElement('h4');
     p0.innerHTML = post.Aikaleima;
-    const p1 = document.createElement('p');
-    p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
+    const p1 = document.createElement('h4');
+    p1.innerHTML = '<i class="fas fa-thumbtack"></i> ' + post.Katuosoite + ' ' + post.Paikkakunta;
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
 
@@ -76,9 +76,12 @@ const createPost = async (data) => {
     });
 
     //moment.js aikaleimoihin
-    const likeButton = document.createElement('button');
+    const likeButton = document.createElement('span');
+    likeButton.className = "heart";
+    const likeValue = document.createElement('p');
+    likeValue.className = "likeVal";
 
-    setLikedState(post.PostausID, likeButton, post);
+    setLikedState(post.PostausID, likeButton, post ,likeValue);
 
     likeButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
@@ -202,14 +205,17 @@ const createPost = async (data) => {
     console.log('Log ' + loggedUser);
     console.log('Post-sposti ' + post.Sahkoposti);
 
-    div.appendChild(h4);
+    
     div.appendChild(h2);
-    div.appendChild(figure);
-    div.appendChild(p0);
+    div.appendChild(h4);
     div.appendChild(p1);
+    div.appendChild(figure);
+    
+    
     div.appendChild(p2);
     if (sessionStorage.getItem('token') != null) {
       div.appendChild(likeButton);
+      div.appendChild(likeValue);
     }
     if (post.Sahkoposti === loggedUser) {
       div.appendChild(modButton);
@@ -221,6 +227,7 @@ const createPost = async (data) => {
     div.appendChild(showComments);
     div.appendChild(commentDiv);
     div.appendChild(commentForm);
+    div.appendChild(p0);
     ul.appendChild(div);
   }
 
@@ -255,12 +262,14 @@ const getPost = async () => {
   }
 };
 
-const setLikedState = async (id, likeButton, post) => {
+const setLikedState = async (id, likeButton, post, likeValue) => {
   const liked = await getLike(id);
   if (liked === undefined || liked.length == 0) {
-    likeButton.innerHTML = 'Likes = ' + post["COUNT(Tykkays.PostausID)"];
+    likeButton.innerHTML = '<i class="fas fa-heart notliked"></i>';
+    likeValue.innerHTML = post["COUNT(Tykkays.PostausID)"];
   } else {
-    likeButton.innerHTML = '<3Likes = ' + post["COUNT(Tykkays.PostausID)"];
+    likeButton.innerHTML = '<i class="fas fa-heart liked"></i>';
+    likeValue.innerHTML = post["COUNT(Tykkays.PostausID)"];
   }
 }
 
@@ -395,7 +404,6 @@ const deleteLike = async (id) => {
     const response = await fetch(url + '/post/like/' + id, fetchOptions);
     const json = await response.json();
     console.log('delete response', json);
-    getPost();
   }
   catch (e) {
     console.log(e.message());

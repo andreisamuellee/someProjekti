@@ -1,298 +1,355 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
-.topBar{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #f6511d;
-    position: fixed;
-    top: 0;
-    width: 100%;
+.heart {
+  cursor: pointer;
+  position: absolute;
+  left: 1.7rem;
+  top: 24.75rem;
 }
 
-.topBar a{
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 2rem;
+.likeVal {
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 24.49rem;
+  color: #a6a7a6;
+  font-size: 0.8rem;
+  padding-bottom: 0.4rem;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+  padding-top: 0.4rem;
+  box-shadow: 0px 0px 3px #f6511d;
+  border-radius: 10px;
+  
 }
 
-.navbar{
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #f6511d;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-
+.liked {
+  color: #f6511d;
 }
 
-.navbar div{
-    float: left;
-    width: 25%;
-}
-.navIcon{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 2rem;
-    
+.topBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f6511d;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
-.content{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 4rem;
-    flex-wrap: wrap;
+.topBar a {
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 2rem;
+  font-family: "Staatliches", cursive;
+}
+
+.navbar {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f6511d;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+
+.navbar div {
+  float: left;
+  width: 25%;
+}
+.navIcon {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 4rem;
+  flex-wrap: wrap;
 }
 
 .modalDialog {
-    position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 99999;
-    opacity:0;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
 }
 
 .modalDialog:target {
-    opacity:1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modalDialog > div {
-    width: 90%;
-    position: relative;
-    margin: 50% auto;
-    padding: 5px 20px 13px 20px;
-    border-radius: 10px;
-    background: #fff;
-    background: -moz-linear-gradient(#fff, #f6511d);
-    background: -webkit-linear-gradient(#fff, #f6511d);
-    background: -o-linear-gradient(#fff, #f6511d);
+  width: 90%;
+  position: relative;
+  margin: 50% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background: #fff;
+  background: -moz-linear-gradient(#fff, #f6511d);
+  background: -webkit-linear-gradient(#fff, #f6511d);
+  background: -o-linear-gradient(#fff, #f6511d);
 }
 
 .close {
-    background: #606061;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: -12px;
-    text-align: center;
-    top: -10px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-    -moz-box-shadow: 1px 1px 3px #000;
-    -webkit-box-shadow: 1px 1px 3px #000;
-    box-shadow: 1px 1px 3px #000;
+  background: #606061;
+  color: #ffffff;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
 }
 
-.close:hover { background: #f6511d; }
-
-.post{
-    padding: 0.1rem 0.2rem;
+.close:hover {
+  background: #f6511d;
 }
 
-.empty{
-    height: 65.6px;
-    width: 100%;
+.post {
+  padding: 0.1rem 0.2rem;
+}
+
+.empty {
+  height: 65.6px;
+  width: 100%;
 }
 
 /* Dropdown Button */
 .dropbtn {
-    background-color: #f6511d;
-    color: white;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
+  background-color: #f6511d;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  font-family: "Staatliches", cursive;
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-    position: relative;
-    display: inline-block;
-    float: right;
-    margin: 1rem;
+  position: relative;
+  display: inline-block;
+  float: right;
+  margin: 1rem;
+  font-family: "Staatliches", cursive;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: #f6511d;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: #f6511d;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-    background-color: #f6511d;
-    color: #ffffff;
+  background-color: #f6511d;
+  color: #ffffff;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #e64a19;}
-
-.postItem{
-    list-style-type: none;
-    text-align: center;
-    margin-bottom: 1rem;
-    border: 1px solid #f6511d;
-    padding: 1rem;
-
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+.dropdown:hover .dropbtn {
+  background-color: #e64a19;
 }
 
-.postItem h2{
-    font-size: 2.5rem;
+.postItem {
+  list-style-type: none;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  position: relative;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0px 0px 5px #f6511d;
+  border-radius: 8px;
+  background-color: white;
+  width: 20.75rem;
+  border-style: solid;
+  border-color: #f6511d;
 }
 
-.postItem p{
-    font-size: 1.3rem;
+.postItem h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.8rem;
+}
+
+.postItem p {
 }
 
 .hide {
-    display: none !important;
+  display: none !important;
 }
 
 .modal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.5);
-    position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
 }
 
 .modal img {
-    display: block;
-    height: 80vh;
-    margin: auto;
-    padding-top: 10vh;
+  display: block;
+  height: 80vh;
+  margin: auto;
+  padding-top: 10vh;
 }
 
 .close-image {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    color: #fff;
-    text-shadow: #000;
-    font-size: 2em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: #fff;
+  text-shadow: #000;
+  font-size: 2em;
 }
 
 h4 {
-    text-align: left;
-    margin-bottom: 0.5rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  color: #a6a7a6;
+  width: 35%;
+  float: left;
+  font-size: 0.8rem;
+  overflow: hidden;
 }
 
-.postItem .comment{
-    font-size: 1rem;
+h4 + h4 {
+  width: 65%;
+  text-align: right;
+  overflow: hidden;
+  height: 15px;
 }
 
-.postItem div{
-    margin: 1rem 0;
-    text-align: left;
-    display: none;
+h4:last-child {
+  width: 100%;
+  text-align: right;
+  font-size: 0.7rem;
 }
 
-.showComments{
-    border: none;
-    background-color: #FFFFFF;
-    color: #606061;
-    margin: auto;
-    display: block;
-    padding: 0.5rem 0;
+.postItem .comment {
+  font-size: 1rem;
 }
 
-.showComments:hover{
-    color: #000000;
-    cursor: pointer;
+.postItem div {
+  margin: 1rem 0;
+  text-align: left;
+  display: none;
 }
 
-.showComments:active{
-    border: none;
-    outline: none;
+.showComments {
+  border: none;
+  background-color: #ffffff;
+  color: #606061;
+  margin: auto;
+  display: block;
+  padding: 0.5rem 0;
 }
 
-.showComments:focus{
-    border: none;
-    outline: none;
+.showComments:hover {
+  color: #000000;
+  cursor: pointer;
 }
 
-.postItem .commentTime{
-    font-size: 0.6rem;
-    color: #606061;
+.showComments:active {
+  border: none;
+  outline: none;
+}
+
+.showComments:focus {
+  border: none;
+  outline: none;
+}
+
+.postItem .commentTime {
+  font-size: 0.6rem;
+  color: #606061;
 }
 
 @media only screen and (min-width: 992px) {
-    .navbar div{
-        float: none;
-        width: auto;
-    }
+  .navbar div {
+    float: none;
+    width: auto;
+  }
 
-    .content{
-        width: 90vw;
-    }
+  .content {
+    width: 90vw;
+  }
 
-    .navbar{
-        flex-direction: column;
-        width: auto;
-        height: 100%;
-    }
+  .navbar {
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+  }
 
-    .content{
-        display: flex;
-        flex-direction: row-reverse;
-        padding-bottom: 0;
-        margin-left: 72px;
-    }
+  .content {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 0;
+    margin-left: 72px;
+  }
 
-    .modalDialog > div {
-        width: 20%;
-        margin: 10% auto;
-    }
-
-
+  .modalDialog > div {
+    width: 20%;
+    margin: 10% auto;
+  }
 }
