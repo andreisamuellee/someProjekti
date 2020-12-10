@@ -1,4 +1,4 @@
-.profilePic{
+img{
     margin: 2em 0;
     width: 10rem;
     height: 10rem;
@@ -9,44 +9,30 @@
   .userinfo {
       text-align: center;
   }
-  .content {
-    flex-direction: column;
-  }
-  .ownPostContent {
-    width: 330px;
-    margin: auto;
-  }
-  
   @media only screen and (min-width: 992px) {
-      #infoArea {
-        padding: 2em;
-        width: 50%;
+      .name {
+        margin-top: 25px;
+        margin-left: 25px;
+        width: 100%;
         text-align: left;
         order: 1;
-        box-sizing: border-box;
       }
       #bio {
         margin: 2em 0 0 2em;
+        order: 2;
+      }
+      img{
+        margin: 0 25px 0 0;
+        width: 10rem;
+        height: 10rem;
         order: 3;
       }
-      #imageArea{
-        width: 50%;
-        height: 10rem;
-        order: 2;
-        box-sizing: border-box;
-      }
       .userinfo {
-          padding-left: 72px;
           width: 100%;
+          margin-left: 72px;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
-          box-sizing: border-box;
-          height: 250px;
+          
       }
-
-      .content {
-        flex-direction: column;
-      }
-      
  }
