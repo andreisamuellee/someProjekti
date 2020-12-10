@@ -5,31 +5,97 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.commentButton{
+    height: 2rem;
+    width: 20%;
+    color: white;
+    background-color: #f6511d;
+    border: solid #f6511d 1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.commentInput{
+    height: 2rem;
+    width: 80%;
+    padding-left: 1rem;
+    border: solid #f6511d 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 1rem;
+}
+
 .heart {
   cursor: pointer;
   position: absolute;
-  left: 1.7rem;
-  top: 24.75rem;
+  left: 2.2rem;
+  top: 21.75rem;
   z-index: 1;
 }
 
 .likeVal {
   cursor: pointer;
   position: absolute;
-  left: 1rem;
-  top: 24.49rem;
+  left: 1.5rem;
+  top: 21.49rem;
   color: #a6a7a6;
   font-size: 0.8rem;
   padding-bottom: 0.4rem;
   padding-left: 2.5rem;
   padding-right: 1rem;
   padding-top: 0.4rem;
-  box-shadow: 0px 0px 3px #f6511d;
   border-radius: 10px;
+  background-color: white;
+}
+
+.deleteButton {
+  cursor: pointer;
+  position: absolute;
+  right: 1.5rem;
+  top: 21.49rem;
+  color: #a6a7a6;
+  font-size: 0.8rem;
+  padding-bottom: 0.4rem;
+  padding-left: 2.9rem;
+  padding-right: 1rem;
+  padding-top: 0.4rem;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.editButton {
+  cursor: pointer;
+  position: absolute;
+  right: 3.73rem;
+  top: 21.49rem;
+  z-index: 1;
+  color: #a6a7a6;
+  font-size: 0.8rem;
+  padding-bottom: 0.4rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-top: 0.4rem;
+}
+
+.editBG {
+  width: 20px;
+  height: 20px;
 }
 
 .liked {
   color: #f6511d;
+}
+
+.postInfo {
+  margin-top: 0.3rem;
+  text-align: left;
+  font-size: 0.8rem;
+
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  border-bottom: solid #d8d8d8 1px;
 }
 
 .topBar {
@@ -41,7 +107,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .topBar a {
@@ -63,6 +129,7 @@
   bottom: 0;
   width: 100%;
   display: flex;
+  z-index: 2;
 }
 
 .navbar div {
@@ -169,6 +236,7 @@
   display: inline-block;
   float: right;
   margin: 1rem;
+  margin-left: 50%;
   font-family: "Staatliches", cursive;
 }
 
@@ -220,14 +288,19 @@
   box-shadow: 0px 0px 5px #f6511d;
   border-radius: 8px;
   background-color: white;
-  width: 20.75rem;
-  border-style: solid;
-  border-color: #f6511d;
+  width: 21.2rem;
+  border: solid #f6511d 1px;
+  height: 100%;
 }
 
 .postItem h2 {
   font-size: 1.5rem;
   padding-bottom: 0.8rem;
+  color: #343332;
+}
+
+b {
+    color: #343332;
 }
 
 .postItem p {
@@ -238,18 +311,18 @@
 }
 
 .modal {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
+  z-index: 10;
 }
 
 .modal img {
   display: block;
-  height: 80vh;
+  width: 90vw;
   margin: auto;
   padding-top: 10vh;
 }
@@ -261,6 +334,7 @@
   color: #fff;
   text-shadow: #000;
   font-size: 2em;
+  z-index: ;
 }
 
 h4 {
@@ -284,6 +358,9 @@ h4:last-child {
   width: 100%;
   text-align: right;
   font-size: 0.7rem;
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.1rem;
 }
 
 .postItem .comment {
@@ -325,27 +402,27 @@ h4:last-child {
   color: #606061;
 }
 
-.postItem div p button{
-    margin-left: 0.5rem;
-    border: none;
-    background-color: #FFFFFF;
-    color: #606061;
-    font-size: 0.6rem;
+.postItem div p button {
+  margin-left: 0.5rem;
+  border: none;
+  background-color: #ffffff;
+  color: #606061;
+  font-size: 0.6rem;
 }
 
-.postItem div p button:hover{
-    color: #000000;
-    cursor: pointer;
+.postItem div p button:hover {
+  color: #000000;
+  cursor: pointer;
 }
 
-.postItem div p button:active{
-    border: none;
-    outline: none;
+.postItem div p button:active {
+  border: none;
+  outline: none;
 }
 
-.postItem div p button:focus{
-    border: none;
-    outline: none;
+.postItem div p button:focus {
+  border: none;
+  outline: none;
 }
 
 @media only screen and (min-width: 992px) {
@@ -354,21 +431,22 @@ h4:last-child {
     width: auto;
   }
 
+  .modal img {
+    width: 80vh;
+  }
+
   .content {
-    width: 90vw;
+    padding-right: 70px;
+    padding-left: 70px;
+    width: 100vw;
+    display: flex;
+    padding-bottom: 0;
   }
 
   .navbar {
     flex-direction: column;
     width: auto;
     height: 100%;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: row-reverse;
-    padding-bottom: 0;
-    margin-left: 72px;
   }
 
   .modalDialog > div {
