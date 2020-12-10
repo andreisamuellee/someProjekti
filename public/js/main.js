@@ -8,9 +8,15 @@ const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const modForm = document.querySelector('#modForm');
+const oldButton = document.getElementById('old');
+const newButton = document.getElementById('new');
+const likesFilterButton = document.getElementById('likesFilter');
+let filter = 0;
 
 const createPost = async (data) => {
-
+  if(filter === 0){
+    data.reverse();
+  }
   const loggedUser = await getLoggedUser();
   ul.innerHTML = '';
   for (const post of data) {
@@ -264,15 +270,6 @@ const commentDelete = async (commentDiv, user, text, timestamp, id, loggedUser, 
   }
 };
 
-const getCommentCount = (mode) => {
-  if(mode === 1){
-    commentCount--;
-  }else {
-    commentCount++;
-  }
-  return commentCount;
-};
-
 const getPost = async () => {
   console.log('getPost token ', sessionStorage.getItem('token'));
   try {
@@ -286,6 +283,29 @@ const getPost = async () => {
       response = await fetch(url + '/getposts', options);
     } else {
       response = await fetch(url + '/post', options);
+    }
+    const data = await response.json();
+    console.log(data);
+    createPost(data);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
+const getLikesFilter = async () => {
+  console.log('getPost token ', sessionStorage.getItem('token'));
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    let response = null;
+    if (sessionStorage.getItem('token') == null) {
+      response = await fetch(url + '/getposts', options);
+    } else {
+      response = await fetch(url + '/post/likesFilter', options);
     }
     const data = await response.json();
     console.log(data);
@@ -361,6 +381,25 @@ const getComments = async (id) => {
     console.log(e.message);
   }
 };
+
+oldButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  filter = 1;
+  console.log('Old button pressed!');
+  getPost();
+});
+
+newButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  filter = 0;
+  getPost();
+});
+
+likesFilterButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  filter = 0;
+  getLikesFilter();
+});
 
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
