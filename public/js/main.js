@@ -150,6 +150,8 @@ const createPost = async (data) => {
     commentForm.classList.add('commentForm');
 
     const commentInput = document.createElement('input');
+    commentInput.className = "commentInput";
+    commentInput.setAttribute('placeholder', 'Lisää kommentti...');
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('name', 'Kommentti');
 
@@ -159,6 +161,7 @@ const createPost = async (data) => {
     IDInput.value = post.PostausID;
 
     const commentButton = document.createElement('button');
+    commentButton.className = 'commentButton';
     commentButton.setAttribute('type', 'submit');
     commentButton.innerHTML = 'Send';
 

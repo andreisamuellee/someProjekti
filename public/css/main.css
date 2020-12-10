@@ -5,6 +5,26 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.commentButton{
+    height: 2rem;
+    width: 20%;
+    color: white;
+    background-color: #f6511d;
+    border: solid #f6511d 1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.commentInput{
+    height: 2rem;
+    width: 80%;
+    padding-left: 1rem;
+    border: solid #f6511d 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 1rem;
+}
+
 .heart {
   cursor: pointer;
   position: absolute;
@@ -46,11 +66,15 @@
 .editButton {
   cursor: pointer;
   position: absolute;
-  right: 4.1rem;
-  top: 21.87rem;
+  right: 3.73rem;
+  top: 21.49rem;
   z-index: 1;
   color: #a6a7a6;
   font-size: 0.8rem;
+  padding-bottom: 0.4rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-top: 0.4rem;
 }
 
 .editBG {
@@ -63,14 +87,15 @@
 }
 
 .postInfo {
-  width: 100%;
   margin-top: 0.3rem;
   text-align: left;
   font-size: 0.8rem;
-  padding: 10px;
-  border-radius: 3px;
 
-  border: solid #d8d8d8 1px;
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  border-bottom: solid #d8d8d8 1px;
 }
 
 .topBar {
@@ -265,11 +290,17 @@
   background-color: white;
   width: 21.2rem;
   border: solid #f6511d 1px;
+  height: 100%;
 }
 
 .postItem h2 {
   font-size: 1.5rem;
   padding-bottom: 0.8rem;
+  color: #343332;
+}
+
+b {
+    color: #343332;
 }
 
 .postItem p {
@@ -327,6 +358,9 @@ h4:last-child {
   width: 100%;
   text-align: right;
   font-size: 0.7rem;
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.1rem;
 }
 
 .postItem .comment {
