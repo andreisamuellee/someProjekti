@@ -82,10 +82,11 @@ const createPost = async (data) => {
     const likeValue = document.createElement('p');
     likeValue.className = "likeVal";
 
-    setLikedState(post.PostausID, likeButton, post ,likeValue);
-
+    setLikedState(post.PostausID, likeButton, post["COUNT(Tykkays.PostausID)"] ,likeValue);
+    let liked = false;
     likeButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
+      let likes = post["COUNT(Tykkays.PostausID)"];
       const fetchOptions = {
         method: 'POST',
         headers: {
@@ -98,8 +99,16 @@ const createPost = async (data) => {
       console.log('like response', json);
       if (json.error) {
         deleteLike(post.PostausID);
+        if(likes !== 0){
+          likes--;
+          liked = true;
+        }
+      }else{
+        if (!liked){
+          likes++;
+        }
       }
-      getPost();
+      setLikedState(post.PostausID, likeButton, likes ,likeValue);
     });
 
 
@@ -331,10 +340,10 @@ const setLikedState = async (id, likeButton, post, likeValue) => {
   const liked = await getLike(id);
   if (liked === undefined || liked.length == 0) {
     likeButton.innerHTML = '<i class="fas fa-heart notliked"></i>';
-    likeValue.innerHTML = post["COUNT(Tykkays.PostausID)"];
+    likeValue.innerHTML = post;
   } else {
     likeButton.innerHTML = '<i class="fas fa-heart liked"></i>';
-    likeValue.innerHTML = post["COUNT(Tykkays.PostausID)"];
+    likeValue.innerHTML = post;
   }
 }
 
