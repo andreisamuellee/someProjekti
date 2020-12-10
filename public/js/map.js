@@ -13,7 +13,7 @@ var directions = new MapboxDirections({
   accessToken: mapboxgl.accessToken,
   interactive: 0
 });
-
+if (map.tap) map.tap.disable();
 map.addControl(directions, 'top-left');
 
 var geolocate = new mapboxgl.GeolocateControl({
