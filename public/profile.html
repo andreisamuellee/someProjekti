@@ -2,12 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/profile.css">
-    <script src="https://kit.fontawesome.com/dc9a87d762.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/profile.css" />
+    <script
+      src="https://kit.fontawesome.com/dc9a87d762.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <ul class="topBar">
@@ -19,57 +25,69 @@
     <div class="empty"></div>
 
     <div id="button-container">
-      <button id="Edit"> Edit bio or profilepicture </button>
+      <button id="Edit">Edit profile</button>
     </div>
-    
+
     <main class="container">
       <section class="content">
-        
         <div class="userinfo">
           <div id="imageArea">
-            <img class="profilePic" src="" alt="Your profilepicture">
+            <img class="profilePic" src="" alt="Your profilepicture" />
           </div>
           <div id="infoArea">
             <h1 class="name"></h1>
             <p id="bio"></p>
           </div>
-          
-          
         </div>
 
         <div id="editModal" class="modalDialog">
           <div>
-              <a href="#close" title="Close" class="close">X</a>
-              <h2>Change your profile picture or bio</h2>
-              <form id="editForm" enctype="multipart/form-data">
-                <label for="Bio">Bio:</label><br>
-                <input type="text" id="bioForm" name="Bio"><br>
-                <input type="file"
-                      name="Profiilikuva"
-                      accept="image/*"
-                      placeholder="Choose file"><br><br>
-                <input id="emailInput" type="hidden" name="Sahkoposti">
-                <button class="Edit" type="submit">Save changes</button>
-              </form>
+            <a href="#close" title="Close" class="close">X</a>
+            <h2>Edit profile</h2>
+            <form id="editForm" enctype="multipart/form-data">
+              <label for="Bio">Bio:</label>
+              <textarea type="text" id="bioForm" name="Bio"></textarea>
+              <input id="emailInput" type="hidden" name="Sahkoposti" />
+
+              <input
+                type="file"
+                name="Profiilikuva"
+                accept="image/*"
+                placeholder="Choose file"
+              />
+              <button class="Edit" type="submit">Save</button>
+            </form>
           </div>
         </div>
 
         <div class="posts">
           <ul class="ownPostContent"></ul>
-
         </div>
-          
       </section>
-      
-    
+
       <nav class="navbar">
-        <div><a class="navIcon" href="index.html"><i class="fas fa-home"></i></a></div>
-        <div><a class="navIcon" href="search.html"><i class="fas fa-map"></i></a></div>
-        <div><a class="navIcon" href="index.html#openModal"><i class="fas fa-camera-retro"></i></a></div>
-        <div><a class="navIcon" href="profile.html"><i class="fas fa-user-cog"></i></a></div>
-        <div><a class="navIcon log-out" href="#"><i class="fas fa-sign-out-alt"></i></a></div>
+        <div>
+          <a class="navIcon" href="index.html"><i class="fas fa-home"></i></a>
+        </div>
+        <div>
+          <a class="navIcon" href="search.html"><i class="fas fa-map"></i></a>
+        </div>
+        <div>
+          <a class="navIcon" href="index.html#openModal"
+            ><i class="fas fa-camera-retro"></i
+          ></a>
+        </div>
+        <div>
+          <a class="navIcon" href="profile.html"
+            ><i class="fas fa-user-cog"></i
+          ></a>
+        </div>
+        <div>
+          <a class="navIcon log-out" href="#"
+            ><i class="fas fa-sign-out-alt"></i
+          ></a>
+        </div>
       </nav>
-    
     </main>
     <script src="./js/serialize.js"></script>
     <script src="./js/profile.js"></script>

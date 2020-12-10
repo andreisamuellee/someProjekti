@@ -1,76 +1,80 @@
-.profilePic{
-    margin: 2em 0;
-    height: 10rem;
+.profilePic {
+  margin: 2em 0;
+  height: 10rem;
+}
+#bio {
+  margin: 2em 0;
+}
+.userinfo {
+  text-align: center;
+}
+.content {
+  flex-direction: column;
+}
+.ownPostContent {
+  width: 330px;
+  margin: auto;
+}
+#button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  display: block;
+  position: relative;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#editModal {
+  display: flex;
+}
+
+#Edit {
+  cursor: pointer;
+  color: white;
+  background-color: #f6511d;
+  border: solid #f6511d 1px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.8rem;
+}
+
+ul {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 992px) {
+  #infoArea {
+    padding: 2em;
+    width: 50%;
+    text-align: left;
+    order: 1;
+    box-sizing: border-box;
   }
   #bio {
-      margin: 2em 0;
+    margin: 2em 0 0 2em;
+    order: 3;
+  }
+  #imageArea {
+    width: 50%;
+    height: 10rem;
+    order: 2;
+    box-sizing: border-box;
   }
   .userinfo {
-      text-align: center;
+    padding-left: 72px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    height: 250px;
   }
+
   .content {
     flex-direction: column;
   }
-  .ownPostContent {
-    width: 330px;
-    margin: auto;
-  }
-  #button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    display:block;
-    position:relative;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-#Edit {
-    cursor: pointer;
-    color: white;
-    background-color: #f6511d;
-    border: solid #f6511d 1px;
-    text-align: center;
-    border-radius: 5px;
-  }
-
-  ul {
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center
-  }
-  
-  @media only screen and (min-width: 992px) {
-      #infoArea {
-        padding: 2em;
-        width: 50%;
-        text-align: left;
-        order: 1;
-        box-sizing: border-box;
-      }
-      #bio {
-        margin: 2em 0 0 2em;
-        order: 3;
-      }
-      #imageArea{
-        width: 50%;
-        height: 10rem;
-        order: 2;
-        box-sizing: border-box;
-      }
-      .userinfo {
-          padding-left: 72px;
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          box-sizing: border-box;
-          height: 250px;
-      }
-
-      .content {
-        flex-direction: column;
-      }
-      
- }
+}

@@ -15,6 +15,15 @@ form > input {
   margin-bottom: 0.5rem;
 }
 
+form > button {
+  height: 2rem;
+  width: 20%;
+  color: white;
+  background-color: #f6511d;
+  border: solid #f6511d 1px;
+  border-radius: 5px;
+}
+
 form > input:last-of-type {
   width: 100%;
   height: auto;
@@ -51,6 +60,8 @@ form > textarea {
   border: solid #f6511d 1px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .commentInput {
@@ -125,8 +136,6 @@ form > textarea {
 .liked {
   color: #f6511d;
 }
-
-
 
 .postInfo {
   margin-top: 0.3rem;
