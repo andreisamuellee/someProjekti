@@ -5,24 +5,64 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.commentButton{
-    height: 2rem;
-    width: 20%;
-    color: white;
-    background-color: #f6511d;
-    border: solid #f6511d 1px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+form > input {
+  width: 100%;
+  height: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border: solid #303030 1px;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
 }
 
-.commentInput{
-    height: 2rem;
-    width: 80%;
-    padding-left: 1rem;
-    border: solid #f6511d 1px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    margin-bottom: 1rem;
+form > input:last-of-type {
+  width: 100%;
+  height: auto;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+form > h2 {
+  margin-bottom: 0.9rem;
+}
+
+form > label {
+  font-size: 0.8rem;
+  color: #303030;
+}
+
+form > textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: solid #303030 1px;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.commentButton {
+  height: 2rem;
+  width: 20%;
+  color: white;
+  background-color: #f6511d;
+  border: solid #f6511d 1px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.commentInput {
+  height: 2rem;
+  width: 80%;
+  padding-left: 1rem;
+  border: solid #f6511d 1px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-bottom: 1rem;
 }
 
 .heart {
@@ -85,6 +125,8 @@
 .liked {
   color: #f6511d;
 }
+
+
 
 .postInfo {
   margin-top: 0.3rem;
@@ -175,16 +217,21 @@
   pointer-events: auto;
 }
 
+#openModal {
+  display: flex;
+}
+
+#close {
+  display: flex;
+}
+
 .modalDialog > div {
-  width: 90%;
+  width: 20rem;
   position: relative;
-  margin: 50% auto;
-  padding: 5px 20px 13px 20px;
-  border-radius: 10px;
-  background: #fff;
-  background: -moz-linear-gradient(#fff, #f6511d);
-  background: -webkit-linear-gradient(#fff, #f6511d);
-  background: -o-linear-gradient(#fff, #f6511d);
+  margin: auto auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.582);
 }
 
 .close {
@@ -300,7 +347,7 @@
 }
 
 b {
-    color: #343332;
+  color: #343332;
 }
 
 .postItem p {
@@ -446,10 +493,5 @@ h4:last-child {
     flex-direction: column;
     width: auto;
     height: 100%;
-  }
-
-  .modalDialog > div {
-    width: 20%;
-    margin: 10% auto;
   }
 }

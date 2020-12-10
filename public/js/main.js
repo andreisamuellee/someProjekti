@@ -504,9 +504,4 @@ const deleteLike = async (id) => {
   }
 };
 
-
-openFormBtn.addEventListener('click', () => {
-  document.getElementById('openModal').style.display = 'block';
-});
-
 getPost();
