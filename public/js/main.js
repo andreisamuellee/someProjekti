@@ -42,6 +42,7 @@ const createPost = async (data) => {
     const p1 = document.createElement('h4');
     p1.innerHTML = '<i class="fas fa-thumbtack"></i> ' + post.Katuosoite + ' ' + post.Paikkakunta;
     const p2 = document.createElement('p');
+    p2.className = 'postInfo';
     p2.innerHTML = post.Tiedot;
 
     let commentDiv = document.createElement('div');
@@ -98,8 +99,9 @@ const createPost = async (data) => {
 
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
-    const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
+    const modButton = document.createElement('span');
+    modButton.className = "editButton";
+    modButton.innerHTML = '<i class="fas fa-edit"></i>';
     modButton.addEventListener('click', () => {
       location.href = '#modModal';
       const inputs = modForm.querySelectorAll('input');
@@ -113,8 +115,9 @@ const createPost = async (data) => {
     });
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
-    const delButton = document.createElement('button');
-    delButton.innerHTML = 'Delete';
+    const delButton = document.createElement('span');
+    delButton.className = "deleteButton";
+    delButton.innerHTML = '<i class="fa fa-trash-alt"></i>';
     delButton.addEventListener('click', async () => {
       const verification = confirm('Are you sure?');
       if(verification) {
