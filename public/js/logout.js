@@ -17,15 +17,10 @@ logOut.addEventListener('click', async (evt) => {
       console.log(json);
       // remove token
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
       location.href = 'login.html';
     } catch (e) {
       console.log(e.message);
     }
   }
 });
-
-if (!sessionStorage.getItem('token')) {
-  logOutDiv.style.visibility='collapse';
-} else {
-  logOut.style.display='block';
-}

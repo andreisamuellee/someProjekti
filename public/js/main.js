@@ -11,7 +11,10 @@ const modForm = document.querySelector('#modForm');
 
 const createPost = async (data) => {
 
-  const loggedUser = await getLoggedUser();
+  const loggedUser = null;
+  if (sessionStorage.getItem('token') != null) {
+    loggedUser = await getLoggedUser();
+  }
   ul.innerHTML = '';
   for (const post of data) {
     const img = document.createElement('img');
@@ -44,8 +47,10 @@ const createPost = async (data) => {
     const p2 = document.createElement('p');
     p2.innerHTML = post.Tiedot;
 
-    let commentDiv = document.createElement('div');
-    const comments = await getComments(post.PostausID);
+    if (sessionStorage.getItem('token') != null) {
+      let commentDiv = document.createElement('div');
+      const comments = await getComments(post.PostausID);
+    
 
     comments.forEach((comment) => {
       const p = document.createElement('p');
@@ -74,7 +79,7 @@ const createPost = async (data) => {
         commentDiv.style.display = 'none';
       }
     });
-
+  }
     //moment.js aikaleimoihin
     const likeButton = document.createElement('button');
     likeButton.innerHTML = 'Likes = ' + post["count(tykkays.postausID)"];
@@ -137,7 +142,7 @@ const createPost = async (data) => {
         console.log(e.message());
       }
     });
-
+    if (sessionStorage.getItem('token') != null) {
     const commentForm = document.createElement('form');
     commentForm.setAttribute('enctype', 'multipart/form-data');
     commentForm.classList.add('commentForm');
@@ -197,11 +202,12 @@ const createPost = async (data) => {
         commentInput.value = '';
       }
     });
+  }
 
     const div = document.createElement('div');
     div.classList.add('postItem');
 
-    console.log('Log ' + loggedUser);
+    //console.log('Log ' + loggedUser);
     console.log('Post-sposti ' + post.Sahkoposti);
 
     div.appendChild(h4);
@@ -219,10 +225,11 @@ const createPost = async (data) => {
     } else {
       console.log('No match!');
     }
-
-    div.appendChild(showComments);
-    div.appendChild(commentDiv);
-    div.appendChild(commentForm);
+    if (sessionStorage.getItem('token') != null) {
+      div.appendChild(showComments);
+      div.appendChild(commentDiv);
+      div.appendChild(commentForm);
+    }
     ul.appendChild(div);
   }
 
@@ -271,6 +278,7 @@ const Like = async (id) => {
   return json;
 };
 
+
 const getLoggedUser = async () => {
   try {
     const options = {
@@ -306,6 +314,7 @@ const getLike = async (id) => {
   }
 };
 
+if (sessionStorage.getItem('token') != null) {
 const getComments = async (id) => {
   try {
     const options = {
@@ -322,6 +331,7 @@ const getComments = async (id) => {
     console.log(e.message);
   }
 };
+}
 
 postForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
