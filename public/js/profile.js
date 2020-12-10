@@ -1,7 +1,9 @@
 'use strict';
-const ul = document.querySelector('.ownPostContent');
 const url = '.';
+const ul = document.querySelector('.ownPostContent');
 const user = JSON.parse(sessionStorage.getItem('user'));
+
+
 document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
 
 if (!document.querySelector('#bio') == null) {
@@ -24,26 +26,29 @@ const createPost = (data) => {
     //console.log(post);
     data.forEach((post) => {
       const img = document.createElement('img');
-      img.src = url + '/thumbnails/' + post.KuvaTiedosto;
-      img.alt = post.Otsikko;
-      img.classList.add('resp');
-  
-      img.addEventListener('click', () => {
-        modalImage.src = url + '/' + post.KuvaTiedosto;
-        imageModal.alt = post.Otsikko;
-        imageModal.classList.toggle('hide');
+    img.src = url + '/thumbnails/' + post.KuvaTiedosto;
+    img.alt = post.Otsikko;
+    img.classList.add('resp');
+    img.addEventListener('click', () => {
+      modalImage.src = url + '/' + post.KuvaTiedosto;
+      imageModal.alt = post.Otsikko;
+      imageModal.classList.toggle('hide');
       });
   
       const figure = document.createElement('figure').appendChild(img);
   
-      const h2 = document.createElement('h2');
-      h2.innerHTML = post.Otsikko;
-      const p0 = document.createElement('p');
-      p0.innerHTML = post.Aikaleima;
-      const p1 = document.createElement('p');
-      p1.innerHTML = post.Katuosoite + ' ' + post.Paikkakunta;
-      const p2 = document.createElement('p');
-      p2.innerHTML = post.Tiedot;
+      const h4 = document.createElement('h4');
+    h4.innerHTML = post.Kayttajatunnus;
+    const h2 = document.createElement('h2');
+    h2.innerHTML = post.Otsikko;
+    const p0 = document.createElement('h4');
+    p0.innerHTML = post.Aikaleima;
+    const p1 = document.createElement('h4');
+    p1.innerHTML = '<i class="fas fa-thumbtack"></i> ' + post.Katuosoite + ' ' + post.Paikkakunta;
+    const p2 = document.createElement('p');
+    p2.className = 'postInfo';
+    p2.innerHTML = post.Tiedot;
+    
       
       const likeButton = document.createElement('button');
       likeButton.innerHTML = 'Like';
