@@ -23,9 +23,3 @@ logOut.addEventListener('click', async (evt) => {
     }
   }
 });
-
-if (!sessionStorage.getItem('token')) {
-  logOutDiv.style.visibility='collapse';
-} else {
-  logOut.style.display='block';
-}

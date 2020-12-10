@@ -15,6 +15,31 @@
     width: 330px;
     margin: auto;
   }
+  #button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    display:block;
+    position:relative;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+#Edit {
+    cursor: pointer;
+    color: white;
+    background-color: #f6511d;
+    border: solid #f6511d 1px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  ul {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+  }
   
   @media only screen and (min-width: 992px) {
       #infoArea {
