@@ -64,20 +64,20 @@
         <a href="#close" title="Close" class="close">X</a>
         <h2>Modify the post</h2>
         <form id="modForm" enctype="multipart/form-data">
-            <label for="name">Name:</label><br>
-            <input type="text" id="modName" name="Otsikko" required><br>
-            <label for="address">Address:</label><br>
-            <input type="text" id="modAddress" name="Katuosoite" required><br>
-            <label for="city">City:</label><br>
-            <input type="text" id="modCity" name="Paikkakunta" required><br>
-            <label for="info">Info:</label><br>
+            <label for="name">Name:</label>
+            <input type="text" id="modName" name="Otsikko" required>
+            <label for="address">Address:</label>
+            <input type="text" id="modAddress" name="Katuosoite" required>
+            <label for="city">City:</label>
+            <input type="text" id="modCity" name="Paikkakunta" required>
+            <label for="info">Info:</label>
             <textarea id="modInfo" name="Tiedot" placeholder="Tell something about this spot"></textarea>
+            <input type="hidden" name="PostausID">
             <input type="file"
                    name="KuvaTiedosto"
                    accept="image/*"
-                   placeholder="Choose file"><br><br>
-            <input type="hidden" name="PostausID">
-            <button class="modify" type="submit">Save changes</button>
+                   placeholder="Choose file">
+            <button class="modify" type="submit">Save</button>
         </form>
     </div>
 </div>

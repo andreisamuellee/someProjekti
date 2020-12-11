@@ -143,7 +143,7 @@ const createPost = async (data) => {
     delButton.className = 'deleteButton';
     delButton.innerHTML = '<i class="fa fa-trash-alt"></i>';
     delButton.addEventListener('click', async () => {
-      const verification = confirm('Are you sure?');
+      const verification = confirm('Are you sure you want to delete this post?');
       if (verification) {
         const fetchOptions = {
           method: 'DELETE',
