@@ -10,7 +10,7 @@ router.post('/register',
     [
       body('username', 'minimum 3 characters').isLength({min: 3}),
       body('email', 'email is not valid').isEmail(),
-      body('password', 'at least one upper case letter').
+      body('password', 'password must be 8 letters long and with atleast one uppercase letter').
       matches('(?=.*[A-Z]).{8,}'),
     ],
     authController.user_create_post
