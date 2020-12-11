@@ -29,7 +29,7 @@ const getUser = async () => {
     }
 
     if (data[0].Profiilikuva !== null) {
-      document.querySelector('.profilePic').src='/' + data[0].Profiilikuva;
+      document.querySelector('.profilePic').src='./' + data[0].Profiilikuva;
     } else {
       document.querySelector('.profilePic').src="";
     }
