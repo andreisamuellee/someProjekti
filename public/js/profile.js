@@ -3,25 +3,49 @@ const url = '.';
 const ul = document.querySelector('.ownPostContent');
 const user = JSON.parse(sessionStorage.getItem('user'));
 
-
 document.querySelector('#infoArea .name').innerHTML=user.Kayttajatunnus;
 const email = document.getElementById('emailInput');
+email.value = user.Sahkoposti;
 
-if (user.Bio !== null) {
-  document.querySelector('#bio').innerHTML=user.Bio;
-} else {
-  document.querySelector('#bio').innerHTML="My name is " + user.Kayttajatunnus + " and I use Skater app";
-}
+const getUser = async () => {
+  console.log('getPost token ', sessionStorage.getItem('token'));
+  console.log('SPOSTI ' + user.Sahkoposti);
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/user/profile/' + user.Sahkoposti, options);
+    const data = await response.json();
+    console.log('Ville: ' + data);
+    console.log('DATAA: ' + data[0].Bio);
 
-if (user.Profiilikuva !== null) {
-  document.querySelector('.profilePic').src='/' + user.Profiilikuva;
-} else {
-  document.querySelector('.profilePic').src="../img/Profile Picture.PNG";
-}
+    if (data[0].Bio !== null) {
+      document.querySelector('#bio').innerHTML= data[0].Bio;
+    } else {
+      document.querySelector('#bio').innerHTML="My name is " + user.Kayttajatunnus + " and I use Skater app";
+    }
+
+    if (data[0].Profiilikuva !== null) {
+      document.querySelector('.profilePic').src='/' + data[0].Profiilikuva;
+    } else {
+      document.querySelector('.profilePic').src="";
+    }
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+
+
+};
+
+
+
 
 
 const createPost = (data) => {
-    email.value = data[0].Sahkoposti;
+    console.log('Höhöö ' + data[0]);
     console.log('Eemaili: ' + email.value);
     ul.innerHTML = '';
     //const post = JSON.parse(post);
@@ -147,6 +171,7 @@ const createPost = (data) => {
       const response = await fetch(url + '/post/bio', fetchOptions);
       const json = await response.json();
       console.log('edit response', json);
+      getUser();
       getPost();
       location.href='#close';
     });
@@ -168,6 +193,7 @@ const changeProfilePhoto = async (formdata) => {
 //<--------------- NOT READY YET 
 
 if (sessionStorage.getItem('token')) {
+    getUser();
     getPost();
   }else{
     window.location.href = 'login.html';

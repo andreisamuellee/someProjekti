@@ -9,6 +9,8 @@ router.get('/', userController.user_list_get);
 
 router.get('/:id', userController.user_get);
 
+router.get('/profile/:id', userController.profile_get);
+
 router.put('/', (req, res) => {
   res.send('With this endpoint you can edit users');
 });

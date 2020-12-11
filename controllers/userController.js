@@ -16,7 +16,16 @@ const user_get = async (req, res) => {
   res.json(user);
 };
 
+const profile_get = async (req, res) => {
+  const id = req.params.id;
+  console.log('IIDDD: '+ id);
+  const user = await userModel.getUser(id);
+  await console.log('uuseri: ' + user);
+  res.json(user);
+};
+
 module.exports = {
   user_list_get,
   user_get,
+  profile_get,
 };

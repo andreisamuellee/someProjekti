@@ -18,7 +18,7 @@ const getUser = async (id) => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM Kayttaja WHERE Sahkoposti = ?',
         [id]);
-    console.log('rows', rows);
+    console.log('UserRows', rows);
     return rows;
   } catch (e) {
     console.log('userModel error', e.message);
