@@ -143,7 +143,7 @@ const createPost = async (data) => {
     delButton.className = 'deleteButton';
     delButton.innerHTML = '<i class="fa fa-trash-alt"></i>';
     delButton.addEventListener('click', async () => {
-      const verification = confirm('Are you sure?');
+      const verification = confirm('Are you sure you want to delete this post?');
       if (verification) {
         const fetchOptions = {
           method: 'DELETE',
@@ -338,7 +338,6 @@ const getLikesFilter = async () => {
       response = await fetch(url + '/post/likesFilter', options);
     }
     const data = await response.json();
-    console.log(data);
     createPost(data);
   } catch (e) {
     console.log(e.message);
@@ -509,9 +508,5 @@ const deleteLike = async (id) => {
     console.log(e.message());
   }
 };
-
-openFormBtn.addEventListener('click', () => {
-  document.getElementById('openModal').style.display = 'block';
-});
 
 getPost();

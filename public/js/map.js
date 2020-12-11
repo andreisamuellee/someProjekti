@@ -13,7 +13,7 @@ var directions = new MapboxDirections({
   accessToken: mapboxgl.accessToken,
   interactive: 0
 });
-
+if (map.tap) map.tap.disable();
 map.addControl(directions, 'top-left');
 
 var geolocate = new mapboxgl.GeolocateControl({
@@ -29,10 +29,9 @@ map.on('load', function () {
 });
 
 geolocate.on('geolocate', (e) => {
-    console.log('user location: '+e.coords.longitude, e.coords.latitude)
-    directions.setOrigin(e.coords.longitude+','+e.coords.latitude);
+  console.log('user location: ' + e.coords.longitude, e.coords.latitude)
+  directions.setOrigin(e.coords.longitude + ',' + e.coords.latitude);
 });
-
 
 function postsToMap(post) {
   let i = 0;
@@ -40,6 +39,10 @@ function postsToMap(post) {
     var el = document.createElement('div');
     el.innerHTML = '<div><a class="navIcon log-out" href="#"><i class="fas fa-map-marker-alt"></i></a></div>';
     el.id = 'marker' + data.PostausID;
+
+    const btn = document.createElement('button');
+    btn.innerHTML = '<button class="naviButton">Navigate</button>';
+
     var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
     mapboxClient.geocoding
       .forwardGeocode({
@@ -64,14 +67,23 @@ function postsToMap(post) {
             ))
             .addTo(map);
           el.addEventListener('click', () => {
-            const controls = document.querySelector('.mapboxgl-ctrl-directions').style.visibility = "visible";
-            directions.setDestination(feature.center);
-            console.log('spot location: '+feature.center);
-          }
-          );
+            const btn = document.querySelector('#naviButton' + data.PostausID);
+            console.log(btn);
+            el.addEventListener('click', () => {
+              const controls = document.querySelector('.mapboxgl-ctrl-directions').style.visibility = "visible";
+              directions.setDestination(feature.center);
+              console.log('spot location: ' + feature.center);
+            });
+          });
         }
       });
   });
 }
+
+
+if (document.querySelector('.naviButton') != null) {
+  console.log('Not null! ' + document.querySelector('.naviButton'));
+}
+
 
 
