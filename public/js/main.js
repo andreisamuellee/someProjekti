@@ -134,8 +134,8 @@ const createPost = async (data) => {
       inputs[0].value = post.Otsikko;
       inputs[1].value = post.Katuosoite;
       inputs[2].value = post.Paikkakunta;
-      inputs[4].value = null;
       inputs[3].value = post.PostausID;
+      inputs[4].value = null;
     });
 
     //Needs a code that detects if the logged user is the creator of the post. Not used yet.
