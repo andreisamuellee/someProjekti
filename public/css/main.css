@@ -424,6 +424,7 @@ h4:last-child {
 
 .postItem .comment {
   font-size: 1rem;
+  overflow: hidden;
 }
 
 .postItem div {

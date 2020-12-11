@@ -20,6 +20,7 @@ const getUser = async () => {
     const data = await response.json();
     console.log('Ville: ' + data);
     console.log('DATAA: ' + data[0].Bio);
+    console.log('profiilikuva: '+data[0].Profiilikuva);
 
     if (data[0].Bio !== null) {
       document.querySelector('#bio').innerHTML= data[0].Bio;
