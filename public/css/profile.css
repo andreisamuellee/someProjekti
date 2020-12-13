@@ -76,13 +76,26 @@
 }
 
 ul {
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+.postItem{
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
 @media only screen and (min-width: 992px) {
+  ul{
+    flex-direction: row;
+  }
+
+  .postItem{
+    margin: 2rem;
+  }
+
   .userinfo {
     display: block;
   }
