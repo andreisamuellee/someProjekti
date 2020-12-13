@@ -496,10 +496,13 @@ h4:last-child {
     width: 80vh;
   }
 
-  .content {
-    padding-right: 70px;
+  .topBar{
     padding-left: 70px;
-    width: 100vw;
+  }
+
+  .content {
+    padding-left: 70px;
+    width: 100%;
     display: flex;
     padding-bottom: 0;
   }

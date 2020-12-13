@@ -1,28 +1,54 @@
 .profilePic {
-  margin: 2em 0;
-  height: 10rem;
+  max-width: 100%;
+  border-radius: 5px;
 }
-#bio {
-  margin: 2em 0;
+
+#imageArea {
+  max-width: 15rem;
+  max-height: 350px;
 }
-.userinfo {
-  text-align: center;
-}
-.content {
-  flex-direction: column;
-}
-.ownPostContent {
-  width: 330px;
-  margin: auto;
-}
+
 #button-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  display: block;
-  position: relative;
-  margin-top: 1rem;
+  justify-content: right;
+  margin: 1rem;
+}
+
+#bio {
+  border: solid #f6511d 1px;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 25rem;
+  overflow: hidden;
+}
+
+.container {
+  flex-direction: column;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  font-family: "Staatliches", cursive;
+  font-size: 3em;
   text-align: center;
+  background-color: #f6511d;
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 25rem;
+  min-width: 20rem;
+}
+
+#infoArea {
+  max-width: 26rem;
+  position: relative;
+  padding: 1rem;
 }
 
 #editModal {
@@ -39,6 +65,16 @@
   padding: 0.8rem;
 }
 
+.postHeader {
+  margin: 3rem 3rem 1rem 3rem;
+  text-align: center;
+  font-family: "Staatliches", cursive;
+  font-size: 3em;
+  background-color: #f6511d;
+  color: white;
+  border-radius: 5px;
+}
+
 ul {
   flex-direction: row;
   display: flex;
@@ -47,34 +83,45 @@ ul {
 }
 
 @media only screen and (min-width: 992px) {
-  #infoArea {
-    padding: 2em;
-    width: 50%;
-    text-align: left;
-    order: 1;
-    box-sizing: border-box;
-  }
-  #bio {
-    margin: 2em 0 0 2em;
-    order: 3;
-  }
-  #imageArea {
-    width: 50%;
-    height: 10rem;
-    order: 2;
-    box-sizing: border-box;
-  }
   .userinfo {
-    padding-left: 72px;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    box-sizing: border-box;
-    height: 250px;
+    display: block;
   }
 
-  .content {
-    flex-direction: column;
+  #imageArea {
+    max-width: 50%;
+    width: 50%;
+    float: right;
+    max-height: 25rem;
+  }
+
+  .profilePic {
+    max-width: 90%;
+    float: left;
+    max-height: 25rem;
+  }
+
+  .holder {
+    float: right;
+    width: 25rem;
+  }
+
+  .name {
+    float: right;
+    width: 25rem;
+  }
+
+  #bio {
+    float: right;
+    width: 25rem;
+  }
+
+  .userinfo {
+    width: 100%;
+  }
+
+  #infoArea {
+    max-width: 50%;
+    position: relative;
+    padding: 1rem;
   }
 }
